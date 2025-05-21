@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import {  Geist_Mono } from "next/font/google";
+import { Geist_Mono, Open_Sans,  } from "next/font/google";
 import "./globals.css";
 
 
@@ -7,6 +7,12 @@ import "./globals.css";
 const geistMono = Geist_Mono({
   subsets: ["latin"],
   variable: "--font-geist-mono",
+  display: "swap"
+});
+
+const openSans = Open_Sans({
+  subsets: ["latin"],
+  variable: "--font-open-sans",
   display: "swap"
 });
 
@@ -21,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistMono.variable}`}>
+    <html lang="en" className={`${geistMono.variable} ${openSans.variable}`}>
       <body className="antialiased">
         {children}
       </body>

@@ -19,6 +19,40 @@ const TestNiveau = () => {
   const [prenom, setPrenom] = useState("");
   const [numero, setNumero] = useState("");
   const [audio, setAudio] = useState<File | null>(null);
+  const [document, setDocument] = useState<File | null>(null);
+  const [message, setMessage] = useState("");
+
+  // Fonction de soumission du formulaire
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!nom || !prenom || !numero || !document || !audio) {
+      setMessage("Veuillez remplir tous les champs et charger les fichiers.");
+      return;
+    }
+    const formData = new FormData();
+    formData.append("nom", nom);
+    formData.append("prenom", prenom);
+    formData.append("numero", numero);
+    formData.append("niveau", selected);
+    formData.append("document", document);
+    formData.append("audio", audio);
+
+    try {
+      const res = await fetch("/api/inscription-test", {
+        method: "POST",
+        body: formData,
+      });
+      if (res.ok) {
+        setMessage("Votre test a bien été soumis !");
+        // Réinitialiser le formulaire si besoin
+      } else {
+        setMessage("Erreur lors de la soumission.");
+      }
+    } catch (err) {
+      setMessage("Erreur lors de la soumission.");
+    }
+  };
 
   return (
     <>
@@ -36,7 +70,7 @@ const TestNiveau = () => {
               {niveaux.map((niveau) => (
                 <button
                   key={niveau.value}
-                  className={`flex items-center justify-center border rounded-[20px] h-[64px] text-base md:text-lg font-grange font-extrabold transition-all ${
+                  className={`flex items-center justify-center border rounded-[20px] h-[64px] text-base md:text-lg font-grange font-bold transition-all ${
                     selected === niveau.value
                       ? "border-[#0F3A42] text-[#0F3A42] bg-white"
                       : "border-[#D7E3ED] text-[#8698A7] bg-white"
@@ -68,7 +102,7 @@ const TestNiveau = () => {
             <div className="flex flex-col md:flex-row h-full w-full">
               {/* Colonne gauche : Niveau et instructions */}
               <div className="flex flex-col w-full md:w-[45%] pl-0 md:pl-6 pt-2 mb-6 md:mb-0">
-                <span className="text-[#0F3A42] font-grange font-extrabold text-xl sm:text-2xl md:text-[28px] mb-4">
+                <span className="text-[#0F3A42] font-grange font-bold text-xl sm:text-2xl md:text-[28px] mb-4">
                   {niveaux.find((n) => n.value === selected)?.label}
                 </span>
                 <div className="border border-[#D7E3ED] rounded-[2px] w-full h-[200px] sm:h-[300px] md:h-[545px] mt-2 bg-white"></div>
@@ -76,16 +110,16 @@ const TestNiveau = () => {
               {/* Colonne droite : Formulaire */}
               <div className="flex flex-col w-full md:w-[55%] pl-0 md:pl-6 pr-0 md:pr-6 pt-2">
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2 gap-2">
-                  <span className="text-black font-grange font-extrabold text-base md:text-[16px]">
+                  <span className="text-black font-grange font-bold text-base md:text-[16px]">
                     Instruction
                   </span>
-                  <span className="text-[#8698A7] font-grange font-extrabold text-lg sm:text-xl md:text-[28px]">
+                  <span className="text-[#8698A7] font-grange font-bold text-lg sm:text-xl md:text-[28px]">
                     {niveaux.find((n) => n.value === selected)?.label}
                   </span>
                 </div>
-                <form className="flex flex-col gap-4 mt-4 md:mt-8">
+                <form className="flex flex-col gap-4 mt-4 md:mt-8" onSubmit={handleSubmit}>
                   <div>
-                    <label className="block text-[#0F3A42] font-grange font-extrabold text-sm md:text-base mb-1">
+                    <label className="block text-[#0F3A42] font-grange font-bold text-sm md:text-base mb-1">
                       Votre nom
                     </label>
                     <input
@@ -96,7 +130,7 @@ const TestNiveau = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-[#0F3A42] font-grange font-extrabold text-sm md:text-base mb-1">
+                    <label className="block text-[#0F3A42] font-grange font-bold text-sm md:text-base mb-1">
                       Prénom
                     </label>
                     <input
@@ -107,7 +141,7 @@ const TestNiveau = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-[#0F3A42] font-grange font-extrabold text-sm md:text-base mb-1">
+                    <label className="block text-[#0F3A42] font-grange font-bold text-sm md:text-base mb-1">
                       Votre numéro avec whatsapp
                     </label>
                     <input
@@ -118,11 +152,35 @@ const TestNiveau = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-[#0F3A42] font-grange font-extrabold text-sm md:text-base mb-1">
-                      Charger
+                    <label className="block text-[#0F3A42] font-grange font-bold text-sm md:text-base mb-1">
+                      Charger un document
                     </label>
                     <div className="w-full h-[60px] md:h-[77px] bg-[#F2F4F6] border border-[#D7E3ED] rounded-[15px] flex items-center justify-center">
-                      <label className="text-[#489EAF] font-grange font-extrabold cursor-pointer text-sm md:text-base">
+                      <label htmlFor="document-upload" className="text-[#489EAF] font-grange font-bold cursor-pointer text-sm md:text-base">
+                        Charger votre document
+                        <input
+                          id="document-upload"
+                          type="file"
+                          accept=".pdf,.doc,.docx,.jpg,.png"
+                          className="hidden"
+                          onChange={(e) =>
+                            setDocument(e.target.files ? e.target.files[0] : null)
+                          }
+                        />
+                      </label>
+                      {document && (
+                        <span className="ml-4 text-[#0F3A42] font-opensans text-xs md:text-sm">
+                          {document.name}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-[#0F3A42] font-grange font-bold text-sm md:text-base mb-1">
+                      Charger un audio
+                    </label>
+                    <div className="w-full h-[60px] md:h-[77px] bg-[#F2F4F6] border border-[#D7E3ED] rounded-[15px] flex items-center justify-center">
+                      <label className="text-[#489EAF] font-grange font-bold cursor-pointer text-sm md:text-base">
                         Charger votre audio
                         <input
                           type="file"
@@ -133,14 +191,22 @@ const TestNiveau = () => {
                           }
                         />
                       </label>
+                      {audio && (
+                        <span className="ml-4 text-[#0F3A42] font-opensans text-xs md:text-sm">
+                          {audio.name}
+                        </span>
+                      )}
                     </div>
                   </div>
                   <button
                     type="submit"
-                    className="w-full max-w-full md:max-w-[413px] mx-auto bg-[#489EAF] hover:bg-[#357d8c] text-white text-base md:text-lg font-grange font-extrabold rounded-[15px] py-2 md:py-3 mt-4 transition"
+                    className="w-full max-w-full md:max-w-[413px] mx-auto bg-[#489EAF] hover:bg-[#357d8c] text-white text-base md:text-lg font-grange font-bold rounded-[15px] py-2 md:py-3 mt-4 transition"
                   >
                     Soumettre
                   </button>
+                  {message && (
+                    <div className="text-center text-red-500 mt-2">{message}</div>
+                  )}
                 </form>
               </div>
             </div>

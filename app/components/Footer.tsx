@@ -26,7 +26,7 @@ const Footer = () => {
           </div>
           {/* Colonne 2 */}
           <div className="flex flex-col gap-[14px] min-w-[147px]">
-            <span className="font-grange font-extrabold text-[26px] leading-[14px]">Nos programmes</span>
+            <span className="font-grange font-extrabold text-[24px] leading-[14px]">Nos programmes</span>
             <Link href="#" className="font-opensans text-[13px] leading-[33px] hover:underline">Niveau 1 (Débutant)</Link>
             <Link href="#" className="font-opensans text-[13px] leading-[33px] hover:underline">Niveau 2 (Intermédiaire)</Link>
             <Link href="#" className="font-opensans text-[13px] leading-[33px] hover:underline">Niveau 3 (Avancé)</Link>
@@ -36,7 +36,7 @@ const Footer = () => {
           </div>
           {/* Colonne 3 */}
           <div className="flex flex-col gap-[18px] min-w-[109px]">
-            <span className="font-grange font-extrabold text-[28px] leading-[20px]">Ressources</span>
+            <span className="font-grange font-extrabold text-[24px] leading-[20px]">Ressources</span>
             <Link href="#" className="font-opensans text-[13px] leading-[33px] hover:underline">Bibliothèque</Link>
             <Link href="#" className="font-opensans text-[13px] leading-[33px] hover:underline">FAQ</Link>
           </div>
