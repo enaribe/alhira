@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-// import { PrismaClient } from "@prisma/client";
-import { PrismaClient } from "../../generated/prisma";
+import { PrismaClient } from "@prisma/client";
+// import { PrismaClient } from "../../generated/prisma";
 import { writeFile } from "fs/promises";
 import path from "path";
 
