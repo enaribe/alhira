@@ -17,17 +17,17 @@ const Header: React.FC = () => {
         </Link>
         
         <nav className="hidden md:flex items-center gap-4 lg:gap-8">
-          <a href="#accueil" className="text-[#0F3A42] font-grange text-sm lg:text-base font-extrabold hover:text-[#489EAF] transition-colors">
+          <a href="/#accueil" className="text-[#0F3A42] font-grange text-sm lg:text-base font-extrabold hover:text-[#489EAF] transition-colors">
             Accueil
           </a>
-          <a href="#formations" className="text-[#0F3A42] font-grange text-sm lg:text-base font-extrabold hover:text-[#489EAF] transition-colors">
+          <a href="/#formations" className="text-[#0F3A42] font-grange text-sm lg:text-base font-extrabold hover:text-[#489EAF] transition-colors">
             Nos formations
           </a>
-          <a href="#contact" className="text-[#0F3A42] font-grange text-sm lg:text-base font-extrabold hover:text-[#489EAF] transition-colors">
+          <a href="/#contact" className="text-[#0F3A42] font-grange text-sm lg:text-base font-extrabold hover:text-[#489EAF] transition-colors">
             Contact
           </a>
           <Link 
-            href="/espace-etudiant" 
+            href="#" 
             className="bg-white border border-[#489EAF] text-[#489EAF] px-6 lg:px-10 py-2 rounded-lg font-grange text-sm lg:text-base font-extrabold hover:bg-[#489EAF] hover:text-white transition-colors"
           >
             Espace Etudiant
