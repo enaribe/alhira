@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
-// import { PrismaClient } from "../../generated/prisma";
-import { writeFile } from "fs/promises";
-import path from "path";
+import { put } from "@vercel/blob";
 
 const prisma = new PrismaClient();
 
@@ -23,13 +21,9 @@ export async function POST(req: NextRequest) {
   const docUniqueName = `document-${uniqueId}.${docExt}`;
   const audioUniqueName = `audio-${uniqueId}.${audioExt}`;
 
-  // Sauvegarde des fichiers
-  const uploadsDir = path.join(process.cwd(), "public", "uploads");
-  const docPath = path.join(uploadsDir, docUniqueName);
-  const audioPath = path.join(uploadsDir, audioUniqueName);
-
-  await writeFile(docPath, Buffer.from(await document.arrayBuffer()));
-  await writeFile(audioPath, Buffer.from(await audio.arrayBuffer()));
+  // Upload to Vercel Blob Storage
+  const { url: docUrl } = await put(`documents/${docUniqueName}`, Buffer.from(await document.arrayBuffer()), { access: 'public' });
+  const { url: audioUrl } = await put(`audios/${audioUniqueName}`, Buffer.from(await audio.arrayBuffer()), { access: 'public' });
 
   // Enregistrement en base
   const test = await prisma.testInscription.create({
@@ -38,8 +32,8 @@ export async function POST(req: NextRequest) {
       prenom,
       numero,
       niveau,
-      document: `/uploads/${docUniqueName}`,
-      audio: `/uploads/${audioUniqueName}`,
+      document: docUrl,
+      audio: audioUrl,
     },
   });
 
