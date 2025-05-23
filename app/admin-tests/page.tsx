@@ -23,16 +23,22 @@ const AdminTests = () => {
     fetchTests();
   }, []);
 
-  const validerTest = (id: number) => {
-    setTests((prev) =>
-      prev.map((test) =>
-        test.id === id ? { ...test, statut: "Validé" } : test
-      )
-    );
+  const validerTest = async (id: number) => {
+    const res = await fetch(`/api/inscription-test/${id}`, { method: "PATCH" });
+    if (res.ok) {
+      setTests((prev) => prev.map((test) => test.id === id ? { ...test, statut: "Validé" } : test));
+    }
   };
 
-  const supprimerTest = (id: number) => {
-    setTests((prev) => prev.filter((test) => test.id !== id));
+  const supprimerTest = async (id: number) => {
+    try {
+      const res = await fetch(`/api/inscription-test/${id}`, { method: "DELETE" });
+      if (res.ok) {
+        setTests((prev) => prev.filter((test) => test.id !== id));
+      }
+    } catch (err) {
+      // Gérer l'erreur
+    }
   };
 
   return (
@@ -76,10 +82,10 @@ const AdminTests = () => {
                         key={test.id}
                         className="bg-white hover:bg-[#F2F4F6] transition rounded-2xl shadow-sm"
                       >
-                        <td className="py-3 px-2 rounded-l-2xl font-opensans">{test.nom}</td>
-                        <td className="py-3 px-2 font-opensans">{test.prenom}</td>
-                        <td className="py-3 px-2 font-opensans">{test.numero}</td>
-                        <td className="py-3 px-2 font-opensans">{test.niveau}</td>
+                        <td className="py-3 px-2 rounded-l-2xl font-opensans text-black">{test.nom}</td>
+                        <td className="py-3 px-2 font-opensans text-black">{test.prenom}</td>
+                        <td className="py-3 px-2 font-opensans text-black">{test.numero}</td>
+                        <td className="py-3 px-2 font-opensans text-black">{test.niveau}</td>
                         
                         
                         <td className="py-3 px-2">

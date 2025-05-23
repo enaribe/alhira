@@ -127,7 +127,7 @@ const TestNiveau = () => {
                     </label>
                     <input
                       type="text"
-                      className="w-full h-[40px] md:h-[46px] bg-[#F2F4F6] border border-[#D7E3ED] rounded-[15px] px-3 md:px-4 text-sm md:text-base"
+                      className="text-black w-full h-[40px] md:h-[46px] bg-[#F2F4F6] border border-[#D7E3ED] rounded-[15px] px-3 md:px-4 text-sm md:text-base"
                       value={nom}
                       onChange={(e) => setNom(e.target.value)}
                     />
@@ -138,7 +138,7 @@ const TestNiveau = () => {
                     </label>
                     <input
                       type="text"
-                      className="w-full h-[40px] md:h-[46px] bg-[#F2F4F6] border border-[#D7E3ED] rounded-[15px] px-3 md:px-4 text-sm md:text-base"
+                      className="text-black w-full h-[40px] md:h-[46px] bg-[#F2F4F6] border border-[#D7E3ED] rounded-[15px] px-3 md:px-4 text-sm md:text-base"
                       value={prenom}
                       onChange={(e) => setPrenom(e.target.value)}
                     />
@@ -149,7 +149,7 @@ const TestNiveau = () => {
                     </label>
                     <input
                       type="text"
-                      className="w-full h-[40px] md:h-[46px] bg-[#F2F4F6] border border-[#D7E3ED] rounded-[15px] px-3 md:px-4 text-sm md:text-base"
+                      className="text-black w-full h-[40px] md:h-[46px] bg-[#F2F4F6] border border-[#D7E3ED] rounded-[15px] px-3 md:px-4 text-sm md:text-base"
                       value={numero}
                       onChange={(e) => setNumero(e.target.value)}
                     />
