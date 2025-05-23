@@ -1,8 +1,10 @@
-import React from 'react';
+"use client";
+import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
 const Header: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <header className="fixed w-full h-[88px] left-0 top-0 bg-white border-b border-[#D7E3ED] z-50">
       <div className="h-full max-w-[1440px] w-full mx-auto px-4 md:px-6 lg:px-8 flex justify-between items-center">
@@ -15,15 +17,14 @@ const Header: React.FC = () => {
             priority
           />
         </Link>
-        
         <nav className="hidden md:flex items-center gap-4 lg:gap-8">
-          <a href="/#accueil" className="text-[#0F3A42] font-grange text-sm lg:text-base font-extrabold hover:text-[#489EAF] transition-colors">
+          <a href="/#accueil" className="text-[#0F3A42] font-grange text-sm lg:text-base font-bold hover:text-[#489EAF] transition-colors">
             Accueil
           </a>
-          <a href="/#formations" className="text-[#0F3A42] font-grange text-sm lg:text-base font-extrabold hover:text-[#489EAF] transition-colors">
+          <a href="/#formations" className="text-[#0F3A42] font-grange text-sm lg:text-base font-bold hover:text-[#489EAF] transition-colors">
             Nos formations
           </a>
-          <a href="/#contact" className="text-[#0F3A42] font-grange text-sm lg:text-base font-extrabold hover:text-[#489EAF] transition-colors">
+          <a href="/#contact" className="text-[#0F3A42] font-grange text-sm lg:text-base font-bold hover:text-[#489EAF] transition-colors">
             Contact
           </a>
           <Link 
@@ -33,14 +34,30 @@ const Header: React.FC = () => {
             Espace Etudiant
           </Link>
         </nav>
-
-        {/* Menu burger pour mobile */}
-        <button className="md:hidden p-2">
+        {/* Burger menu for mobile */}
+        <button className="md:hidden p-2" onClick={() => setIsOpen(!isOpen)}>
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-[#0F3A42]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
       </div>
+      {/* Mobile menu */}
+      {isOpen && (
+        <nav className="md:hidden bg-white border-t border-[#D7E3ED] px-4 py-4 flex flex-col gap-4">
+          <a href="/#accueil" className="text-[#0F3A42] font-grange text-base font-extrabold hover:text-[#489EAF] transition-colors" onClick={() => setIsOpen(false)}>
+            Accueil
+          </a>
+          <a href="/#formations" className="text-[#0F3A42] font-grange text-base font-extrabold hover:text-[#489EAF] transition-colors" onClick={() => setIsOpen(false)}>
+            Nos formations
+          </a>
+          <a href="/#contact" className="text-[#0F3A42] font-grange text-base font-extrabold hover:text-[#489EAF] transition-colors" onClick={() => setIsOpen(false)}>
+            Contact
+          </a>
+          <Link href="#" className="bg-white border border-[#489EAF] text-[#489EAF] px-6 py-2 rounded-lg font-grange text-base font-extrabold hover:bg-[#489EAF] hover:text-white transition-colors" onClick={() => setIsOpen(false)}>
+            Espace Etudiant
+          </Link>
+        </nav>
+      )}
     </header>
   );
 };
