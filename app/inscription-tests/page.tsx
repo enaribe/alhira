@@ -108,7 +108,39 @@ const TestNiveau = () => {
                 <span className="text-[#0F3A42] font-grange font-bold text-xl sm:text-2xl md:text-[28px] mb-4">
                   {niveaux.find((n) => n.value === selected)?.label}
                 </span>
-                <div className="border border-[#D7E3ED] rounded-[2px] w-full h-[200px] sm:h-[300px] md:h-[545px] mt-2 bg-white"></div>
+                <div className="border border-[#D7E3ED] rounded-[2px] w-full h-[200px] sm:h-[300px] md:h-[545px] mt-2 bg-white flex flex-col justify-end relative">
+                  {/* Download button inside the square */}
+                  <div className="w-full flex items-center justify-center border-1 border-[#D7E3ED] p-4 mt-auto">
+                    {selected === "debutant" && (
+                      <a
+                        href="/uploads/n1.pdf"
+                        download
+                        className="bg-white text-[#489EAF] font-grange font-extrabold text-base md:text-[20px] px-6 py-1 rounded-[10px] "
+                      >
+                        Télécharger le sujet
+                      </a>
+                    )}
+                    {selected === "intermediaire" && (
+                      <a
+                        href="/uploads/n2.pdf"
+                        download
+                        className="bg-white text-[#489EAF] font-grange font-extrabold text-base md:text-[20px] px-6 py-1 rounded-[10px] "
+                      >
+                        Télécharger le sujet
+                      </a>
+                    )}
+                    {selected === "avance" && (
+                      <a
+                        href="/uploads/n3.pdf"
+                        download
+                        className="bg-white text-[#489EAF] font-grange font-extrabold text-base md:text-[20px] px-6 py-1 rounded-[10px] "
+                      >
+                        Télécharger le sujet
+                      </a>
+                    )}
+                    {/* Add more cases if you have more levels and PDFs */}
+                  </div>
+                </div>
               </div>
               {/* Colonne droite : Formulaire */}
               <div className="flex flex-col w-full md:w-[55%] pl-0 md:pl-6 pr-0 md:pr-6 pt-2">
