@@ -1,7 +1,8 @@
-import React from 'react';
+"use client"
+
+import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-
 const Programs = () => {
   const programs = [
     {
@@ -23,6 +24,182 @@ const Programs = () => {
       color: "#0F3A42"
     }
   ];
+
+  const specialClasses = [
+    {
+      id: 1,
+      type: 'class',
+      title: "Classe Abubakr As-Sidikh",
+      badge: "hifz 1",
+      badgeColor: "#B65D73",
+      icon: "/images/bookdark.png",
+      label: "Mémorisation du coran",
+      description: "De la sourate Ad-Duha (93) á An-Nas (114) avec 2 heures par semaine",
+      duration: "18 semaines",
+      inscription: "S'inscrire"
+    },
+    {
+      id: 2,
+      type: 'class',
+      title: "Classe Oumar ibn khatab",
+      badge: "hifz 2",
+      badgeColor: "#B65D73",
+      icon: "/images/bookdark.png",
+      label: "Mémorisation du coran",
+      description: "De la sourate Ad-Duha (87) á An-Nas (93) avec 2 heures par semaine",
+      duration: "18 semaines",
+      inscription: "S'inscrire"
+    },
+    {
+      id: 3,
+      type: 'class',
+      title: "Classe Ousthmân ibn Affân",
+      badge: "hifz 3",
+      badgeColor: "#B65D73",
+      icon: "/images/bookdark.png",
+      label: "Mémorisation du coran",
+      description: "De la sourate An-Naba (78) á Al-A’la (87) avec 2 heures par semaine",
+      duration: "18 semaines",
+      inscription: "S'inscrire"
+    },
+    {
+      id: 4,
+      type: 'class',
+      title: "Classe Ali ibn Talib",
+      badge: "hifz 4",
+      badgeColor: "#B65D73",
+      icon: "/images/bookdark.png",
+      label: "Mémorisation du coran",
+      description: "De la sourate An-Naba (78) á Al-A’la (87) avec 2 heures par semaine",
+      duration: "18 semaines",
+      inscription: "S'inscrire"
+    },
+    {
+      id: 99,
+      type: 'modalite',
+      title: "Modalité des classes spéciales",
+      icon: "/images/bookdark.png",
+      bg: "bg-white",
+      inscriptionLabel: "Inscription",
+      inscriptionPrice: "25 000",
+      mensualiteLabel: "Mensualité",
+      mensualitePrice: "20 000",
+      manuel: true,
+      button: "Commencer maintenant"
+    },
+    // Ajoute d'autres objets ici pour d'autres cartes...
+  ];
+
+  const tafsirClasses = [
+    {
+      id: 1,
+      type: 'class',
+      title: "Tafsir ou Exegese du saint coran",
+      badge: "",
+      badgeColor: "#489EAF",
+      icon: "/images/bookdark.png",
+      label: "Tafsir du Coran",
+      description: "De la sourate A’ La (87) á An-Nas (114) avec 2 heures par semaine.",
+      duration: "9 semaines",
+      inscription: "S'inscrire"
+    },
+    {
+      id: 2,
+      type: 'class',
+      title: "Tafsir ou Exegese du saint coran",
+      badge: "",
+      badgeColor: "#489EAF",
+      icon: "/images/bookdark.png",
+      label: "Tafsir du Coran",
+      description: "De la sourate la caverne (18).",
+      duration: "10 semaines",
+      inscription: "S'inscrire"
+    },
+    {
+      id: 99,
+      type: 'modalite',
+      title: "Modalité des classes spéciales",
+      icon: "/images/bookdark.png",
+      bg: "bg-white",
+      inscriptionLabel: "Inscription",
+      inscriptionPrice: "25 000",
+      mensualiteLabel: "Mensualité",
+      mensualitePrice: "20 000",
+      manuel: true,
+      button: "Commencer maintenant"
+    },
+    // ... autres classes tafsir
+  ];
+
+  const langueArabeClasses = [
+    {
+      id: 1,
+      type: 'class',
+      title: "Niveau 1",
+      badge: "",
+      badgeColor: "#0F3A42",
+      icon: "/images/bookdark.png",
+      label: "Langue arabe",
+      description: "Ce programme hebdomadaire est basé sur la série «الدروس اللغوية » pour les niveau Débutant.",
+      duration: "14 semaines",
+      inscription: "S'inscrire"
+    },
+    {
+      id: 2,
+      type: 'class',
+      title: "Niveau 2",
+      badge: "",
+      badgeColor: "#0F3A42",
+      icon: "/images/bookdark.png",
+      label: "Langue arabe",
+      description: "Ce programme hebdomadaire est basé sur la série pour le niveau »»  الدروس اللغويةintermédiaire.",
+      duration: "14 semaines",
+      inscription: "S'inscrire"
+    },
+    {
+      id: 3,
+      type: 'class',
+      title: "Niveau 3",
+      badge: "",
+      badgeColor: "#0F3A42",
+      icon: "/images/bookdark.png",
+      label: "Langue arabe",
+      description: "Programme de Langue Arabe (2h/semaine) Ce programme hebdomadaire est basé sur la série الدروس اللغوية  « niveau avancé.",
+      duration: "14 semaines",
+      inscription: "S'inscrire"
+    },
+    {
+      id: 99,
+      type: 'modalite',
+      title: "Modalité des classes spéciales",
+      icon: "/images/bookdark.png",
+      bg: "bg-white",
+      inscriptionLabel: "Inscription",
+      inscriptionPrice: "25 000",
+      mensualiteLabel: "Mensualité",
+      mensualitePrice: "20 000",
+      manuel: true,
+      button: "Commencer maintenant"
+    }
+    // ... autres classes langue arabe
+  ];
+
+  const [activeTab, setActiveTab] = useState('Memorisation');
+
+  const tabs = [
+    { label: 'Memorisation', value: 'Memorisation' },
+    { label: 'Tafsir', value: 'Tafsir' },
+    { label: 'Langue arabe', value: 'Langue arabe' },
+  ];
+
+  let filteredClasses: any[] = [];
+  if (activeTab === 'Memorisation') {
+    filteredClasses = specialClasses;
+  } else if (activeTab === 'Tafsir') {
+    filteredClasses = tafsirClasses;
+  } else if (activeTab === 'Langue arabe') {
+    filteredClasses = langueArabeClasses;
+  }
 
   return (
     <section className="py-20 px-4 md:px-6 lg:px-8 bg-white">
@@ -67,14 +244,6 @@ const Programs = () => {
                     <path d="M164.301 67.1751H157.993V72.6414L153.368 77.2667L157.993 81.892V88.1992H164.301L168.926 92.8245L173.551 88.1992H179.018V81.892L183.643 77.2667L179.018 72.6414V67.1751H173.551L168.926 62.5498L164.301 67.1751Z" stroke="white" strokeOpacity="0.3" strokeWidth="2"/>
                     <path d="M194.576 67.1751H188.269V72.6414L183.644 77.2667L188.269 81.892V88.1992H194.576L199.201 92.8245L203.827 88.1992H209.293V81.892L213.918 77.2667L209.293 72.6414V67.1751H203.827L199.201 62.5498L194.576 67.1751Z" stroke="white" strokeOpacity="0.3" strokeWidth="2"/>
                     <path d="M224.85 67.1751H218.543V72.6414L213.918 77.2667L218.543 81.892V88.1992H224.85L229.476 92.8245L234.101 88.1992H239.567V81.892L244.193 77.2667L239.567 72.6414V67.1751H234.101L229.476 62.5498L224.85 67.1751Z" stroke="white" strokeOpacity="0.3" strokeWidth="2"/>
-                    <path d="M134.026 97.4495H127.719V102.916L123.094 107.541L127.719 112.166V118.474H134.026L138.652 123.099L143.277 118.474H148.743V112.166L153.368 107.541L148.743 102.916V97.4495H143.277L138.652 92.8242L134.026 97.4495Z" stroke="white" strokeOpacity="0.3" strokeWidth="2"/>
-                    <path d="M164.301 97.4495H157.993V102.916L153.368 107.541L157.993 112.166V118.474H164.301L168.926 123.099L173.551 118.474H179.018V112.166L183.643 107.541L179.018 102.916V97.4495H173.551L168.926 92.8242L164.301 97.4495Z" stroke="white" strokeOpacity="0.3" strokeWidth="2"/>
-                    <path d="M194.576 97.4495H188.269V102.916L183.644 107.541L188.269 112.166V118.474H194.576L199.201 123.099L203.827 118.474H209.293V112.166L213.918 107.541L209.293 102.916V97.4495H203.827L199.201 92.8242L194.576 97.4495Z" stroke="white" strokeOpacity="0.3" strokeWidth="2"/>
-                    <path d="M224.85 97.4495H218.543V102.916L213.918 107.541L218.543 112.166V118.474H224.85L229.476 123.099L234.101 118.474H239.567V112.166L244.193 107.541L239.567 102.916V97.4495H234.101L229.476 92.8242L224.85 97.4495Z" stroke="white" strokeOpacity="0.3" strokeWidth="2"/>
-                    <path d="M134.026 6.6253H127.719V12.0916L123.094 16.7169L127.719 21.3422V27.6494H134.026L138.652 32.2747L143.277 27.6494H148.743V21.3422L153.368 16.7169L148.743 12.0916V6.6253H143.277L138.652 2L134.026 6.6253Z" stroke="white" strokeOpacity="0.3" strokeWidth="2"/>
-                    <path d="M164.301 6.6253H157.993V12.0916L153.368 16.7169L157.993 21.3422V27.6494H164.301L168.926 32.2747L173.551 27.6494H179.018V21.3422L183.643 16.7169L179.018 12.0916V6.6253H173.551L168.926 2L164.301 6.6253Z" stroke="white" strokeOpacity="0.3" strokeWidth="2"/>
-                    <path d="M194.576 6.6253H188.269V12.0916L183.644 16.7169L188.269 21.3422V27.6494H194.576L199.201 32.2747L203.827 27.6494H209.293V21.3422L213.918 16.7169L209.293 12.0916V6.6253H203.827L199.201 2L194.576 6.6253Z" stroke="white" strokeOpacity="0.3" strokeWidth="2"/>
-                    <path d="M224.85 6.6253H218.543V12.0916L213.918 16.7169L218.543 21.3422V27.6494H224.85L229.476 32.2747L234.101 27.6494H239.567V21.3422L244.193 16.7169L239.567 12.0916V6.6253H234.101L229.476 2L224.85 6.6253Z" stroke="white" strokeOpacity="0.3" strokeWidth="2"/>
                     <path d="M134.026 36.8997H127.719V42.366L2.00293 46.9913L6.62823 51.6166V57.9238H134.026L17.5608 62.5491L22.1861 57.9238H27.6523V51.6166L32.2776 46.9913L27.6523 42.366V36.8997H22.1861L17.5608 32.2744L12.9355 36.8997Z" stroke="white" strokeOpacity="0.3" strokeWidth="2"/>
                     <path d="M43.2099 36.8997H36.9026V42.366L32.2773 46.9913L36.9026 51.6166V57.9238H43.2099L47.8352 62.5491L52.4605 57.9238H57.9267V51.6166L62.552 46.9913L57.9267 42.366V36.8997H52.4605L47.8352 32.2744L43.2099 36.8997Z" stroke="white" strokeOpacity="0.3" strokeWidth="2"/>
                     <path d="M73.4843 36.8997H67.1771V42.366L62.5518 46.9913L67.1771 51.6166V57.9238H73.4843L78.1096 62.5491L82.7349 57.9238H88.2011V51.6166L92.8264 46.9913L88.2011 42.366V36.8997H82.7349L78.1096 32.2744L73.4843 36.8997Z" stroke="white" strokeOpacity="0.3" strokeWidth="2"/>
@@ -110,7 +279,7 @@ const Programs = () => {
                 </p>
                 <div className="flex justify-center mb-4">
                   <Link
-                    href={`/programmes/${program.level.toLowerCase()}`}
+                    href={`/inscription-tests`}
                     className="w-[311px] h-[46px] flex items-center justify-center bg-[#489EAF] text-white font-grange text-lg font-extrabold rounded-[10px] hover:bg-[#357e8e] transition-colors"
                   >
                     Détails du programme
@@ -121,16 +290,13 @@ const Programs = () => {
           ))}
           
         </div>
-        
-
 
         <div className="flex flex-col md:flex-row gap-8 mt-8 px-7">
-          {/* Carte Niveau Supérieur */}
-          <div className="relative box-border w-full md:w-1/2 h-auto border border-[#D7E3ED] rounded-[25px] overflow-hidden flex flex-col md:flex-row shadow-lg"> {/* Ajout de shadow-lg pour un effet similaire à l'image */}
-
-            {/* Colonne Gauche (Sombre avec motif et icône) */}
-            <div className="relative md:w-[35%] w-full bg-[#0F3A42] p-5 flex flex-col items-start"> {/* Ajustez md:w-[35%] au besoin. p-5 pour le padding interne. */}
-              {/* Motif décoratif */}
+          {/* Niveau supérieur card (2/3 width) */}
+          <div className="relative box-border w-full md:w-2/3 h-auto border border-[#D7E3ED] rounded-[25px] overflow-hidden flex flex-col md:flex-row shadow-lg">
+            {/* Left column: motif + icon */}
+            <div className="relative md:w-[35%] w-full bg-[#0F3A42] p-5 flex flex-col items-start rounded-l-[25px]">
+              {/* Motif SVG and icon as before */}
               {/* REMPLACEZ CECI par votre SVG ou composant Image pour le motif */}
               {/* Exemple avec un SVG placeholder (le motif réel est plus complexe, basé sur l'image) */}
               <div className="absolute inset-0 opacity-20 pointer-events-none">
@@ -178,49 +344,128 @@ const Programs = () => {
           </div>
 
           {/* Carte Classe Spéciales */}
-          <div className="relative box-border w-full md:w-1/2 h-auto border border-[#D7E3ED] rounded-[25px] bg-white overflow-hidden flex flex-col shadow-lg"> {/* Ajout de shadow-lg */}
-
-            {/* Section supérieure pour l'icône et l'espacement */}
-            {/* L'icône est maintenant positionnée absolument par rapport à la carte globale */}
-            
-
-            {/* Contenu principal */}
-            <div className="flex-1 flex flex-col px-6 pt-8 pb-6 bg-white border border-[#D7E3ED] rounded-[25px] relative shadow-lg">
-              {/* Icône livre en haut à droite */}
-              <div className="absolute right-6 top-6 w-9 h-6">
-                <Image
-                  src="/images/bookdark.png"
-                  width={36}
-                  height={24}
-                  alt=""
-                />
-              </div>
-              
-              <h3 className="font-grange font-extrabold text-2xl text-[#489EAF] mb-4">
-                Classe spéciales <span className="text-[#0F3A42]">3 Mois</span>
+          <div className="relative box-border w-full md:w-1/3 h-auto border border-[#D7E3ED] rounded-[25px] bg-white overflow-hidden flex flex-col shadow-lg">
+            {/* Title and icon */}
+            <div className="flex items-center justify-between px-6 pt-6">
+              <h3 className="font-grange font-extrabold text-[24px] leading-[30px] text-[#0F3A42] mb-4">
+                Modalité des classes
               </h3>
-
-              <div className="space-y-4 text-[#0F3A42]">
-                <div className="space-y-2">
-                  <p className="font-semibold">
-                    Classe spéciale de mémorisation
-                  </p>
-                  <p className="text-sm leading-relaxed">
-                    Du Coran, encadrée par des enseignants qualifiés, avec un programme structuré de mémorisation et de révision
-                  </p>
-                </div>
-
-                <div className="space-y-2">
-                  <p className="font-semibold">
-                    Classe spéciale de langue arabe
-                  </p>
-                  <p className="text-sm leading-relaxed">
-                    Destinée à toute personne ayant les prérequis d'intégrer cette classe
-                  </p>
-                </div>
+              <Image src="/images/bookdark.png" width={35} height={22} alt="" />
+            </div>
+            {/* Price blocks */}
+            <div className="flex flex-col gap-4 px-6 mt-2">
+              <div className="flex flex-row gap-3 items-center">
+                <span className="font-grange font-extrabold text-[16px] leading-[22px] text-[#0F3A42]">Inscription: <span className="text-[#489EAF]">20 000</span></span>
+              </div>
+              <div className="flex flex-row gap-3 items-center">
+                <span className="font-grange font-extrabold text-[16px] leading-[22px] text-[#0F3A42]">Mensualité: <span className="text-[#489EAF]">15 000</span></span>
               </div>
             </div>
+            {/* Manuel offert */}
+            <div className="flex flex-row items-center gap-4 px-6 mt-4">
+              <div className="flex items-center justify-center w-[28px] h-[28px] border border-[#B65D73] rounded-full">
+                {/* Replace with your SVG or icon */}
+                <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0.5" y="0.5" width="34" height="34" rx="17" stroke="#B65D73"/>
+                <path d="M17.0818 27.5001C18.2089 27.5001 19.1227 26.5864 19.1227 25.4593C19.1227 24.3322 18.2089 23.4185 17.0818 23.4185C15.9547 23.4185 15.041 24.3322 15.041 25.4593C15.041 26.5864 15.9547 27.5001 17.0818 27.5001Z" fill="#B65D73"/>
+                <path d="M13 11.5816C13 9.32857 14.8286 7.5 17.0816 7.5C19.3347 7.5 21.1633 9.32857 21.1633 11.5816C21.1633 13.8347 19.3347 21.7857 17.0816 21.7857C14.8286 21.7857 13 13.8347 13 11.5816Z" fill="#B65D73"/>
+                </svg>
+
+              </div>
+              <span className="font-grange font-extrabold text-[16px] leading-[22px] text-[#B65D73]">Manuel offert</span>
+            </div>
+            {/* Commencer maintenant button */}
+            <div className="flex justify-center mt-8 mb-6">
+              <button className="bg-[#489EAF] text-white font-grange font-extrabold text-[18px] leading-[26px] rounded-[10px] w-4/5 py-2 shadow-lg">
+                Commencer maintenant
+              </button>
+            </div>
           </div>
+        </div>
+        <div className="mt-10 ml-6">
+          <h2 className="text-[#0F3A42] font-grange font-extrabold text-[34px] leading-[11px] mb-8">
+            Classes spéciales
+          </h2>
+          {/* Onglets de sélection */}
+          <div className="flex gap-4 md:gap-6 mb-10 flex-wrap md:flex-nowrap overflow-x-auto scrollbar-hide justify-start px-0">
+            {tabs.map(tab => (
+              <button
+                key={tab.value}
+                onClick={() => setActiveTab(tab.value)}
+                className={`min-w-[150px] px-4 md:px-6 py-1.5 rounded-full border text-[16px] md:text-[18px] font-grange font-bold transition-all duration-150 whitespace-nowrap
+                  ${activeTab === tab.value
+                    ? 'bg-[#F2F4F6] border-[#0F3A42] text-[#0F3A42] shadow'
+                    : 'bg-white border-[#D7E3ED] text-[#A0AEC0]'}
+                `}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className="w-full flex flex-col md:flex-row gap-y-8 md:gap-x-8 justify-center items-center mt-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full place-items-center">
+            {filteredClasses.map((classe) => (
+              classe.type === 'modalite' ? (
+                <div key={classe.id} className={`relative box-border w-full h-auto border border-[#D7E3ED] rounded-[25px] ${classe.bg || 'bg-[#F2F4F6]'} overflow-hidden flex flex-col min-w-0 max-w-[384px] min-h-[450px]`}>
+                  <div className="flex flex-col items-start px-6 pt-8 pb-4 flex-1">
+                    <Image src={classe.icon} width={45} height={30} alt="" className="mb-4" />
+                    <h3 className="font-grange font-extrabold text-[24px] leading-[30px] text-[#0F3A42] mt-6 mb-6">
+                      {classe.title}
+                    </h3>
+                    <div className="flex flex-col gap-4 w-full max-w-[260px] mb-6">
+                      <div className="flex flex-row gap-3 items-center">
+                        <span className="font-grange font-bold text-[20px] leading-[22px] text-[#0F3A42]">{classe.inscriptionLabel}: <span className="text-[#489EAF]">{classe.inscriptionPrice}</span></span>
+                      </div>
+                      <div className="flex flex-row gap-3 items-center">
+                        <span className="font-grange font-bold text-[20px] leading-[22px] text-[#0F3A42]">{classe.mensualiteLabel}: <span className="text-[#489EAF]">{classe.mensualitePrice}</span></span>
+                      </div>
+                    </div>
+                    {classe.manuel && (
+                      <div className="flex flex-row items-center gap-4 mb-6 mt-6">
+                        <div className="flex items-center justify-center w-[28px] h-[28px] border border-[#B65D73] rounded-full">
+                          <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0.5" y="0.5" width="34" height="34" rx="17" stroke="#B65D73"/>
+                            <path d="M17.0818 27.5001C18.2089 27.5001 19.1227 26.5864 19.1227 25.4593C19.1227 24.3322 18.2089 23.4185 17.0818 23.4185C15.9547 23.4185 15.041 24.3322 15.041 25.4593C15.041 26.5864 15.9547 27.5001 17.0818 27.5001Z" fill="#B65D73"/>
+                            <path d="M13 11.5816C13 9.32857 14.8286 7.5 17.0816 7.5C19.3347 7.5 21.1633 9.32857 21.1633 11.5816C21.1633 13.8347 19.3347 21.7857 17.0816 21.7857C14.8286 21.7857 13 13.8347 13 11.5816Z" fill="#B65D73"/>
+                          </svg>
+                        </div>
+                        <span className="font-grange font-extrabold text-[16px] leading-[22px] text-[#B65D73]">Manuel offert</span>
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex justify-center mt-auto mb-6">
+                    <button className="bg-[#489EAF] text-white font-grange font-extrabold text-[18px] leading-[26px] rounded-[10px] w-4/5 py-2 shadow-lg">
+                      {classe.button}
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div key={classe.id} className="bg-[#F2F4F6] border border-[#D7E3ED] rounded-[25px] p-6 sm:p-8 w-full max-w-[384px] min-h-[450px] flex flex-col relative min-w-0">
+                  <div className="flex items-center justify-between mb-8">
+                    <img src={classe.icon} alt="" className="w-[45px] h-[30px] object-contain" />
+                    <span className="text-[#B65D73] font-grange font-bold text-[16px]">{classe.badge}</span>
+                  </div>
+                  <div className="inline-flex flex-row gap-2 border border-[#0F3A42] rounded-[10px] px-4 py-2 mb-6 w-fit">
+                    <p className="font-grange font-extrabold text-[16px] text-[#0F3A42]">{classe.label}</p>
+                  </div>
+                  <h3 className="font-grange font-extrabold text-[20px] leading-[30px] text-[#0F3A42] mb-6">{classe.title}</h3>
+                  <p className="font-opensans text-[16px] text-[#0F3A42] font-medium leading-[28px] mb-8">
+                    {classe.description}
+                  </p>
+                  <div className="flex items-center gap-4 mb-2">
+                    {/* Icône horloge */}
+                    <svg width="24" height="24" fill="none" stroke="#0F3A42" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 7v5l3 3"/></svg>
+                    <span className="font-grange font-extrabold text-[18px] text-[#0F3A42]">{classe.duration}</span>
+                  </div>
+                  <Link href="/inscription-tests" className="bg-[#489EAF] text-center text-white font-grange font-extrabold text-[20px] rounded-[10px] px-8 py-2 mt-auto hover:bg-[#3A8A9B] transition-colors">
+                    {classe.inscription}
+                  </Link>
+                </div>
+              )
+            ))}
+          </div>
+          
         </div>
       </div>
     </section>

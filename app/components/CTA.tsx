@@ -12,7 +12,7 @@ const CTA = () => {
         </div>
         {/* Partie gauche : texte et boutons */}
         <div className="flex-1 flex flex-col justify-center items-start z-10 ml-5">
-          <h2 className="font-grange font-extrabold text-white text-[32px] md:text-[48px] leading-tight mb-6">
+          <h2 className="font-grange font-extrabold text-white text-[28px] md:text-[42px] leading-tight mb-6">
             Prêt à commencer votre<br />parcours éducatif&nbsp;?
           </h2>
           <p className="font-opensans text-white text-[14px] leading-[26px] mb-8 max-w-[455px]">

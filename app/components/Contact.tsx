@@ -17,7 +17,7 @@ const Contact = () => {
             </svg>
 
             </span>
-            <span className="text-[#103951] font-grange font-extrabold text-lg sm:text-xl md:text-2xl">
+            <span className="text-[#103951] font-grange font-extrabold text-base sm:text-lg md:text-xl">
               77 779 90 29 / 70 369 75 38
             </span>
           </div>
@@ -29,7 +29,7 @@ const Contact = () => {
             </svg>
 
             </span>
-            <span className="text-[#103951] font-grange font-extrabold text-lg sm:text-xl md:text-2xl">
+            <span className="text-[#103951] font-grange font-extrabold text-base sm:text-lg md:text-xl">
               contact@institutalhira.com
             </span>
           </div>
@@ -41,7 +41,7 @@ const Contact = () => {
             </svg>
 
             </span>
-            <span className="text-[#103951] font-grange font-extrabold text-lg sm:text-xl md:text-2xl">
+            <span className="text-[#103951] font-grange font-extrabold text-base sm:text-lg md:text-xl">
               Amitié 3, Dakar
             </span>
           </div>
