@@ -43,7 +43,7 @@ const Features = () => {
       <div className="max-w-[1440px] mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-[#0F3A42] font-grange font-extrabold text-4xl md:text-5xl lg:text-[54px] mb-4">
-            Pourquoi choisir Al Hira
+            Pourquoi choisir<br className="md:hidden" /> Al Hira
           </h2>
           <p className="text-[#0F3A42] font-opensans text-lg max-w-2xl mx-auto">
             Nous offrons une expérience d'apprentissage complète axée sur la qualité et l'excellence académique
