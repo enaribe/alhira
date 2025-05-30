@@ -70,7 +70,7 @@ const Programs = () => {
       badgeColor: "#B65D73",
       icon: "/images/bookdark.png",
       label: "Mémorisation du coran",
-      description: "De la sourate An-Naba (78) á Al-A’la (87) avec 2 heures par semaine",
+      description: "Sourate Yasin (36) - Formation de 26 heures répartie sur 13 semaines (2h par session)",
       duration: "18 semaines",
       inscription: "S'inscrire"
     },
@@ -152,7 +152,7 @@ const Programs = () => {
       badgeColor: "#0F3A42",
       icon: "/images/bookdark.png",
       label: "Langue arabe",
-      description: "Ce programme hebdomadaire est basé sur la série pour le niveau »»  الدروس اللغويةintermédiaire.",
+      description: "Ce programme hebdomadaire est basé sur la série «الدروس اللغوية » pour le niveau intermédiaire.",
       duration: "14 semaines",
       inscription: "S'inscrire"
     },
@@ -164,7 +164,7 @@ const Programs = () => {
       badgeColor: "#0F3A42",
       icon: "/images/bookdark.png",
       label: "Langue arabe",
-      description: "Programme de Langue Arabe (2h/semaine) Ce programme hebdomadaire est basé sur la série الدروس اللغوية  « niveau avancé.",
+      description: "Programme de Langue Arabe (2h/semaine) Ce programme hebdomadaire est basé sur la série «الدروس اللغوية» - niveau avancé.",
       duration: "14 semaines",
       inscription: "S'inscrire"
     },
