@@ -70,7 +70,7 @@ const Programs = () => {
       badgeColor: "#B65D73",
       icon: "/images/bookdark.png",
       label: "Mémorisation du coran",
-      description: "Sourate Yasin (36) - Formation de 26 heures répartie sur 13 semaines (2h par session)",
+      description: "Sourate Yasin (36) - Formation de 26 heures répartie sur 13 semaines (2h par séance)",
       duration: "18 semaines",
       inscription: "S'inscrire"
     },
