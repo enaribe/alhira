@@ -46,7 +46,7 @@ const Programs = () => {
       badgeColor: "#B65D73",
       icon: "/images/bookdark.png",
       label: "Mémorisation du coran",
-      description: "De la sourate Ad-Duha (87) á An-Nas (93) avec 2 heures par semaine",
+      description: "De la sourate A'la (87) á Ad-Duha (93) avec 2 heures par semaine",
       duration: "18 semaines",
       inscription: "S'inscrire"
     },
@@ -58,7 +58,7 @@ const Programs = () => {
       badgeColor: "#B65D73",
       icon: "/images/bookdark.png",
       label: "Mémorisation du coran",
-      description: "De la sourate An-Naba (78) á Al-A’la (87) avec 2 heures par semaine",
+      description: "De la sourate An-Naba (78) á Al-A'la (87) avec 2 heures par semaine",
       duration: "18 semaines",
       inscription: "S'inscrire"
     },
@@ -99,7 +99,7 @@ const Programs = () => {
       badgeColor: "#489EAF",
       icon: "/images/bookdark.png",
       label: "Tafsir du Coran",
-      description: "De la sourate A’ La (87) á An-Nas (114) avec 2 heures par semaine.",
+      description: "De la sourate A' La (87) á An-Nas (114) avec 2 heures par semaine.",
       duration: "9 semaines",
       inscription: "S'inscrire"
     },
@@ -140,7 +140,7 @@ const Programs = () => {
       badgeColor: "#0F3A42",
       icon: "/images/bookdark.png",
       label: "Langue arabe",
-      description: "Ce programme hebdomadaire est basé sur la série «الدروس اللغوية » pour les niveau Débutant.",
+      description: "Ce programme hebdomadaire est basé sur la série «الدروس اللغوية » pour les niveau Débutant.",
       duration: "14 semaines",
       inscription: "S'inscrire"
     },
@@ -152,7 +152,7 @@ const Programs = () => {
       badgeColor: "#0F3A42",
       icon: "/images/bookdark.png",
       label: "Langue arabe",
-      description: "Ce programme hebdomadaire est basé sur la série «الدروس اللغوية » pour le niveau intermédiaire.",
+      description: "Ce programme hebdomadaire est basé sur la série «الدروس اللغوية » pour le niveau intermédiaire.",
       duration: "14 semaines",
       inscription: "S'inscrire"
     },
