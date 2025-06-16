@@ -17,7 +17,7 @@ const Hero = () => {
         />
         <div className="absolute top-0 left-0 w-full h-full flex items-center">
           <div className="px-4 md:px-12 py-8 md:py-0 max-w-2xl -mt-8 md:-mt-12 ml-4 md:ml-8">
-            <h1 className="text-white font-grange font-extrabold text-2xl sm:text-3xl md:text-4xl lg:text-[46px] leading-tight sm:leading-snug md:leading-[56px] lg:leading-[63px] tracking-[0%] mb-3 md:mb-5">
+            <h1 className="text-white font-grange font-extrabold text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight sm:leading-snug md:leading-tight lg:leading-tight tracking-[0%] mb-3 md:mb-5">
               Découvrez l'excellence dans les sciences islamiques
             </h1>
             <p className="text-white/90 font-opensans text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed mb-5 md:mb-7 max-w-xl">
@@ -52,7 +52,7 @@ const Hero = () => {
         />
         <div className="absolute top-0 left-0 w-full h-full flex items-center">
           <div className="px-4 py-8 max-w-2xl mx-auto">
-            <h1 className="text-white font-grange font-extrabold text-2xl leading-tight mb-3">
+            <h1 className="text-white font-grange font-extrabold text-2xl sm:text-3xl leading-tight mb-3">
               Découvrez l'excellence dans les sciences islamiques
             </h1>
             <p className="text-white/90 font-opensans text-sm leading-relaxed mb-5 max-w-xl">

@@ -61,7 +61,7 @@ const NiveauCardSVG = ({ className }: { className?: string }) => (
 );
 
 const SuperiorLevelSVG = ({ className }: { className?: string }) => (
-  <svg width="216" height="244" viewBox="0 0 216 244" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <svg width="100%" height="100%" viewBox="0 0 216 244" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} preserveAspectRatio="none">
     <path d="M165.28 49.0721C203.006 48.5066 214.146 70.7517 215 81.945V218C215 231.807 203.807 243 190 243H26C12.1929 243 1 231.807 1 218V81.945C4.69054 54.2328 35.6842 48.483 50.7198 49.0721C54.5641 26.4499 73.2731 27.5104 86.0874 21.5013C96.3389 16.6941 104.882 5.83078 107.872 1C121.455 20.7944 131.963 22.2083 148.365 27.5104C161.487 31.752 165.109 43.6522 165.28 49.0721Z" fill="white" stroke="#D7E3ED"/>
   </svg>
 );
@@ -114,7 +114,7 @@ const NiveauCard = ({ icon, title, description, inscriptionUrl }: NiveauCardProp
         {icon}
       </div>
       {/* Titre */}
-      <h3 className="font-grange font-extrabold text-xl leading-6 text-[#0F3A42] mb-3.5 w-full text-center">
+      <h3 className="font-grange font-extrabold text-lg md:text-xl leading-6 text-[#0F3A42] mb-3.5 w-full text-center">
         {title}
       </h3>
       {/* Description */}
@@ -135,7 +135,7 @@ const NiveauCard = ({ icon, title, description, inscriptionUrl }: NiveauCardProp
 const SuperiorLevelCard = ({ title }: { title: string }) => (
   <div className="relative w-[216px] h-[244px] flex items-center justify-center">
     <SuperiorLevelSVG className="absolute top-0 left-0 w-full h-full z-0" />
-    <span className="relative z-10 font-grange font-extrabold text-[#103951] text-base md:text-lg leading-6 text-center px-4">
+    <span className="relative z-10 font-grange font-extrabold text-[#103951] text-sm xl:text-base leading-5 xl:leading-6 text-center px-3 py-2 break-words hyphens-auto">
       {title}
     </span>
   </div>
@@ -162,7 +162,7 @@ const SpecialClassCard = ({ classe }: SpecialClassCardProps) => (
     
     {/* Contenu principal */}
     <div className="flex flex-col items-start gap-4 w-[304px] z-10">
-      <h3 className="font-grange font-extrabold text-xl leading-[28px] text-[#0F3A42] mb-0">
+      <h3 className="font-grange font-extrabold text-lg md:text-xl leading-[28px] text-[#0F3A42] mb-0">
         {classe.title}
       </h3>
       <p className="font-opensans text-[15px] leading-[25px] text-[#0F3A42] font-normal mb-0">
@@ -182,9 +182,9 @@ const SpecialClassCard = ({ classe }: SpecialClassCardProps) => (
     
     {/* Bouton */}
     <div className="w-full flex justify-center mb-8 z-10">
-      <button className="w-[90%] h-[46px] bg-[#489EAF] rounded-[10px] flex items-center justify-center font-grange font-extrabold text-lg leading-[12px] text-white hover:bg-[#357e8e] transition-colors">
+      <Link href="/inscription-tests" className="w-[90%] h-[46px] bg-[#489EAF] rounded-[10px] flex items-center justify-center font-grange font-extrabold text-lg leading-[12px] text-white hover:bg-[#357e8e] transition-colors no-underline">
         {classe.inscription || 'S\'inscrire'}
-      </button>
+      </Link>
     </div>
   </div>
 );
@@ -205,7 +205,7 @@ const ModaliteCard = ({ data }: ModaliteCardProps) => (
     
     {/* Contenu principal */}
     <div className="flex flex-col items-start gap-4 w-[304px] z-10">
-      <h3 className="font-grange font-extrabold text-xl leading-[28px] text-[#0F3A42] mb-0">
+      <h3 className="font-grange font-extrabold text-lg md:text-xl leading-[28px] text-[#0F3A42] mb-0">
         {data.title}
       </h3>
       
@@ -229,9 +229,9 @@ const ModaliteCard = ({ data }: ModaliteCardProps) => (
     
     {/* Bouton */}
     <div className="w-full flex justify-center mb-8 z-10">
-      <button className="w-[90%] h-[46px] bg-[#489EAF] rounded-[10px] flex items-center justify-center font-grange font-extrabold text-lg leading-[12px] text-white hover:bg-[#357e8e] transition-colors">
+      <Link href="/inscription-tests" className="w-[90%] h-[46px] bg-[#489EAF] rounded-[10px] flex items-center justify-center font-grange font-extrabold text-lg leading-[12px] text-white hover:bg-[#357e8e] transition-colors no-underline">
         {data.button || 'S\'inscrire'}
-      </button>
+      </Link>
     </div>
   </div>
 );
@@ -273,7 +273,8 @@ const Programs = () => {
     button: "S'inscrire"
   });
 
-  const specialClasses: ClassData[] = [
+  // Classes de mémorisation
+  const memorisationClasses: ClassData[] = [
     {
       id: 1,
       type: 'class',
@@ -321,13 +322,13 @@ const Programs = () => {
       description: "Sourate Yasin (36) - Formation de 26 heures répartie sur 13 semaines (2h par séance)",
       duration: "18 semaines",
       inscription: "S'inscrire"
-    },
-    createModaliteCard()
+    }
   ];
 
+  // Classes de tafsir
   const tafsirClasses: ClassData[] = [
     {
-      id: 1,
+      id: 11,
       type: 'class',
       title: "Tafsir ou Exegese du saint coran",
       badge: "",
@@ -339,7 +340,7 @@ const Programs = () => {
       inscription: "S'inscrire"
     },
     {
-      id: 2,
+      id: 12,
       type: 'class',
       title: "Tafsir ou Exegese du saint coran",
       badge: "",
@@ -349,13 +350,13 @@ const Programs = () => {
       description: "De la sourate la caverne (18).",
       duration: "10 semaines",
       inscription: "S'inscrire"
-    },
-    createModaliteCard()
+    }
   ];
 
+  // Classes de langue arabe
   const langueArabeClasses: ClassData[] = [
     {
-      id: 1,
+      id: 21,
       type: 'class',
       title: "Niveau 1",
       badge: "",
@@ -367,7 +368,7 @@ const Programs = () => {
       inscription: "Voir le programme"
     },
     {
-      id: 2,
+      id: 22,
       type: 'class',
       title: "Niveau 2",
       badge: "",
@@ -379,7 +380,7 @@ const Programs = () => {
       inscription: "Voir le programme"
     },
     {
-      id: 3,
+      id: 23,
       type: 'class',
       title: "Niveau 3",
       badge: "",
@@ -389,40 +390,29 @@ const Programs = () => {
       description: "Programme de Langue Arabe (2h/semaine) Ce programme hebdomadaire est basé sur la série «الدروس اللغوية» - niveau avancé.",
       duration: "14 semaines",
       inscription: "Voir le programme"
-    },
+    }
+  ];
+
+  // Toutes les classes combinées
+  const allSpecialClasses: ClassData[] = [
+    ...memorisationClasses,
+    ...tafsirClasses,
+    ...langueArabeClasses,
     createModaliteCard()
   ];
 
   const superiorLevelFaculties = [
-    "Faculté de la science du Coran",
-    "Faculté Tawhid",
-    "Faculté hadith",
-    "Faculté de la jurisprudence islamique (fiqh)",
-    "Faculté siirah (histoire du prophète Mouhamed PSL)"
+    "Science du Coran",
+    "Tawhid",
+    "Hadith",
+    "Jurisprudence islamique (Fiqh)",
+    "Siirah (Histoire du Prophète ﷺ)"
   ];
-
-  // State pour les onglets
-  const [activeTab, setActiveTab] = useState('Memorisation');
-
-  const tabs = [
-    { label: 'Mémorisation du coran', value: 'Memorisation' },
-    { label: 'Tafsir', value: 'Tafsir' },
-    { label: 'Langue arabe', value: 'Langue arabe' },
-  ];
-
-  const getActiveClasses = () => {
-    switch (activeTab) {
-      case 'Memorisation': return specialClasses;
-      case 'Tafsir': return tafsirClasses;
-      case 'Langue arabe': return langueArabeClasses;
-      default: return specialClasses;
-    }
-  };
 
   return (
     <div className='relative'>
       {/* Titre principal */}
-      <SectionTitle className="relative z-10 text-[#0F3A42] text-2xl md:text-3xl lg:text-4xl mb-16 mt-16">
+      <SectionTitle className="relative z-10 text-[#0F3A42] text-3xl md:text-4xl lg:text-5xl mb-16 mt-16">
           Nos programmes d'enseignement
       </SectionTitle>
 
@@ -431,7 +421,7 @@ const Programs = () => {
         <BackgroundImage src="/images/nclassic.png" />
         
         <SectionTitle 
-          className="relative z-10 text-white text-3xl md:text-4xl lg:text-5xl mb-12" 
+          className="relative z-10 text-white text-2xl md:text-3xl lg:text-4xl mb-12" 
           style={{ lineHeight: '1.1' }}
         >
           Niveaux classiques
@@ -451,78 +441,112 @@ const Programs = () => {
       </section>
 
       {/* Section Niveau supérieur */}
-      <section className="relative w-full min-h-[573px] flex flex-col items-center justify-center overflow-x-hidden mt-12">
-        <div className="absolute left-[-10px] top-0 w-[1462px] h-[573px] z-0 pointer-events-none">
+      <section className="relative w-full min-h-[400px] md:min-h-[500px] lg:min-h-[573px] flex flex-col items-center justify-center overflow-hidden mt-8 md:mt-12 px-4">
+        {/* Image de fond responsive */}
+        <div className="absolute inset-0 w-full h-full z-0 pointer-events-none">
           <img src="/images/nclassic2.png" alt="" className="w-full h-full object-cover" />
-              </div>
+        </div>
 
         <SectionTitle 
-          className="relative z-10 text-white text-2xl md:text-3xl lg:text-4xl mb-12" 
+          className="relative z-10 text-white text-2xl md:text-3xl lg:text-4xl mb-8 md:mb-12 px-4" 
           style={{lineHeight: '1.1'}}
         >
           Niveau supérieur
         </SectionTitle>
         
-        <div className="relative z-10 flex flex-row items-center justify-center gap-[21px] w-full max-w-[1155px] mx-auto mb-12">
-          {superiorLevelFaculties.map((title, idx) => (
-            <SuperiorLevelCard key={idx} title={title} />
-          ))}
+        {/* Cartes facultés - Responsive */}
+        <div className="relative z-10 w-full max-w-[1155px] mx-auto mb-8 md:mb-12 px-4">
+          {/* Version mobile et tablette : Grille */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:hidden gap-6 md:gap-8">
+            {superiorLevelFaculties.map((title, idx) => (
+              <div key={idx} className="relative w-full max-w-[320px] h-[220px] md:h-[240px] flex items-center justify-center mx-auto">
+                <SuperiorLevelSVG className="absolute top-0 left-0 w-full h-full z-0" />
+                <span className="relative z-10 font-grange font-extrabold text-[#103951] text-xs sm:text-sm md:text-base leading-4 sm:leading-5 md:leading-6 text-center px-6 py-4 break-words hyphens-auto">
+                  {title}
+                </span>
+              </div>
+            ))}
           </div>
-
-        <div className="relative z-10 flex flex-row items-center justify-center gap-[26px] w-full max-w-[587px] mx-auto">
-          <button className="w-[279px] h-[48px] border border-white rounded-[10px] flex items-center justify-center font-grange font-extrabold text-lg text-white transition hover:bg-white hover:text-[#0F3A42]">
-            En savoir plus
-          </button>
-          <button className="w-[282px] h-[48px] bg-[#489EAF] rounded-[10px] flex items-center justify-center font-grange font-extrabold text-lg text-white transition hover:bg-[#357e8e]">
-            S'inscrire maintenant
-              </button>
+          
+          {/* Version desktop : Ligne horizontale */}
+          <div className="hidden lg:flex flex-row items-center justify-center gap-[21px]">
+            {superiorLevelFaculties.map((title, idx) => (
+              <SuperiorLevelCard key={idx} title={title} />
+            ))}
+          </div>
+        </div>
+        
+        {/* Boutons responsive */}
+        <div className="relative z-10 w-full max-w-[587px] mx-auto px-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-[26px]">
+            <Link href="/inscription-tests" className="w-full sm:w-[279px] h-[44px] md:h-[48px] border border-white rounded-[8px] md:rounded-[10px] flex items-center justify-center font-grange font-extrabold text-base md:text-lg text-white transition hover:bg-white hover:text-[#0F3A42] no-underline">
+              En savoir plus
+            </Link>
+            <Link href="/inscription-tests" className="w-full sm:w-[282px] h-[44px] md:h-[48px] bg-[#489EAF] rounded-[8px] md:rounded-[10px] flex items-center justify-center font-grange font-extrabold text-base md:text-lg text-white transition hover:bg-[#357e8e] no-underline">
+              S'inscrire maintenant
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* Section Classes spéciales */}
+      {/* Section Classes spéciales - Séparées par catégories */}
       <section className="relative w-full py-16 md:py-24 bg-[#F2F4F6] flex flex-col items-center">
-        <SectionTitle className="text-[#0F3A42] text-2xl md:text-3xl lg:text-4xl mb-8">
-            Classes spéciales
+        <SectionTitle className="text-[#0F3A42] text-3xl md:text-4xl lg:text-5xl mb-16">
+          Classes spéciales
         </SectionTitle>
         
-        {/* Système d'onglets fonctionnel */}
-        <div className="w-full max-w-4xl mb-12">
-          <div className="flex border border-[#D7E3ED] rounded-[16px] overflow-hidden">
-            {tabs.map((tab) => (
-              <button
-                key={tab.value}
-                onClick={() => setActiveTab(tab.value)}
-                className={`flex-1 py-3 text-center font-grange font-bold transition-colors ${
-                  activeTab === tab.value
-                    ? 'text-[#0F3A42] bg-white'
-                    : 'text-[#6B7280] bg-gray-50 hover:bg-gray-100'
-                }`}
-              >
-                {tab.label}
-              </button>
+        {/* Section Mémorisation du coran */}
+        <div className="w-full max-w-7xl px-4 mb-16">
+          <div className="w-full mb-12">
+            <div className="w-full flex flex-row justify-center items-center px-6 py-2 bg-white/10 border border-[#D7E3ED] rounded-t-[25px]">
+              <h3 className="font-grange font-extrabold text-[#0F3A42] text-lg md:text-xl lg:text-2xl text-center">
+                Mémorisation du coran
+              </h3>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+            {memorisationClasses.map((classe) => (
+              <SpecialClassCard key={classe.id} classe={classe} />
             ))}
+            <ModaliteCard key="memorisation-modalite" data={createModaliteCard("Modalité des classes spéciales")} />
           </div>
         </div>
-        
-        {/* Titre de section dynamique */}
-        <div className="w-full text-center mb-8">
-          <h3 className="font-grange font-extrabold text-[#0F3A42] text-xl">
-            {activeTab}
-                    </h3>
-                      </div>
-        
-        {/* Grille des cartes avec plus d'espacement */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 w-full max-w-7xl px-4">
-          {getActiveClasses().map((classe) => (
-            classe.type === 'class' ? (
+
+        {/* Section Tafsir */}
+        <div className="w-full max-w-7xl px-4 mb-16">
+          <div className="w-full mb-12">
+            <div className="w-full flex flex-row justify-center items-center px-6 py-2 bg-white/10 border border-[#D7E3ED] rounded-t-[25px]">
+              <h3 className="font-grange font-extrabold text-[#0F3A42] text-lg md:text-xl lg:text-2xl text-center">
+                Tafsir
+              </h3>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+            {tafsirClasses.map((classe) => (
               <SpecialClassCard key={classe.id} classe={classe} />
-            ) : (
-              <ModaliteCard key={classe.id} data={classe} />
-              )
             ))}
+            <ModaliteCard key="tafsir-modalite" data={createModaliteCard("Modalité des classes spéciales")} />
+          </div>
+        </div>
+
+        {/* Section Langue arabe */}
+        <div className="w-full max-w-7xl px-4">
+          <div className="w-full mb-12">
+            <div className="w-full flex flex-row justify-center items-center px-6 py-2 bg-white/10 border border-[#D7E3ED] rounded-t-[25px]">
+              <h3 className="font-grange font-extrabold text-[#0F3A42] text-lg md:text-xl lg:text-2xl text-center">
+                Langue arabe
+              </h3>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+            {langueArabeClasses.map((classe) => (
+              <SpecialClassCard key={classe.id} classe={classe} />
+            ))}
+            <ModaliteCard key="langue-arabe-modalite" data={createModaliteCard("Modalité des classes spéciales")} />
+          </div>
         </div>
       </section>
-      </div>
+    </div>
   );
 };
 

@@ -24,7 +24,7 @@ const CTA = () => {
         
         {/* Partie gauche : texte et boutons */}
         <div className="flex-1 flex flex-col justify-center items-start z-10 ml-0 md:ml-3 lg:ml-5 text-center lg:text-left">
-          <h2 className="font-grange font-extrabold text-white text-[20px] sm:text-[24px] md:text-[32px] lg:text-[42px] leading-tight mb-4 md:mb-6 w-full lg:w-auto">
+          <h2 className="font-grange font-extrabold text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight mb-4 md:mb-6 w-full lg:w-auto">
             Prêt à commencer votre<br className="hidden lg:block" />
             <span className="lg:hidden"> </span>parcours éducatif&nbsp;?
           </h2>

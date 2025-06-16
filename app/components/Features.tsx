@@ -47,7 +47,7 @@ const Features = () => {
     <section className="py-20 px-4 md:px-6 lg:px-8 bg-[#fff]">
       <div className="max-w-[1440px] mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-[#0F3A42] font-grange font-extrabold text-4xl md:text-5xl lg:text-[54px] mb-4">
+          <h2 className="text-[#0F3A42] font-grange font-extrabold text-3xl md:text-4xl lg:text-5xl mb-4">
             Pourquoi choisir<br className="md:hidden" /> Al Hira
           </h2>
           <p className="text-[#0F3A42] font-opensans text-lg max-w-2xl mx-auto">
@@ -71,7 +71,11 @@ const Features = () => {
 };
 
 // Nouveau composant pour la carte avec SVG en fond
-const FeatureCard = ({ icon, title, description }) => (
+const FeatureCard = ({ icon, title, description }: {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+}) => (
   <div style={{ width: 374, height: 485, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
     {/* SVG en fond */}
     <svg
