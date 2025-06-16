@@ -441,50 +441,53 @@ const Programs = () => {
       </section>
 
       {/* Section Niveau supérieur */}
-      <section className="relative w-full min-h-[400px] md:min-h-[500px] lg:min-h-[573px] flex flex-col items-center justify-center overflow-hidden mt-8 md:mt-12 px-4">
+      <section className="relative w-full min-h-[500px] sm:min-h-[600px] md:min-h-[700px] lg:min-h-[573px] flex flex-col items-center justify-center overflow-hidden mt-8 md:mt-12">
         {/* Image de fond responsive */}
         <div className="absolute inset-0 w-full h-full z-0 pointer-events-none">
           <img src="/images/nclassic2.png" alt="" className="w-full h-full object-cover" />
         </div>
 
-        <SectionTitle 
-          className="relative z-10 text-white text-2xl md:text-3xl lg:text-4xl mb-8 md:mb-12 px-4" 
-          style={{lineHeight: '1.1'}}
-        >
-          Niveau supérieur
-        </SectionTitle>
-        
-        {/* Cartes facultés - Responsive */}
-        <div className="relative z-10 w-full max-w-[1155px] mx-auto mb-8 md:mb-12 px-4">
-          {/* Version mobile et tablette : Grille */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:hidden gap-6 md:gap-8">
-            {superiorLevelFaculties.map((title, idx) => (
-              <div key={idx} className="relative w-full max-w-[320px] h-[220px] md:h-[240px] flex items-center justify-center mx-auto">
-                <SuperiorLevelSVG className="absolute top-0 left-0 w-full h-full z-0" />
-                <span className="relative z-10 font-grange font-extrabold text-[#103951] text-xs sm:text-sm md:text-base leading-4 sm:leading-5 md:leading-6 text-center px-6 py-4 break-words hyphens-auto">
-                  {title}
-                </span>
-              </div>
-            ))}
+        {/* Conteneur principal avec padding approprié */}
+        <div className="relative z-10 w-full h-full flex flex-col items-center justify-center px-6 sm:px-8 md:px-12 lg:px-16 py-8 sm:py-12 md:py-16">
+          <SectionTitle 
+            className="text-white text-2xl md:text-3xl lg:text-4xl mb-6 sm:mb-8 md:mb-12" 
+            style={{lineHeight: '1.1'}}
+          >
+            Niveau supérieur
+          </SectionTitle>
+          
+          {/* Cartes facultés - Responsive avec padding */}
+          <div className="w-full max-w-[1155px] mx-auto mb-6 sm:mb-8 md:mb-12">
+            {/* Version mobile et tablette : Grille */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:hidden gap-4 sm:gap-6 md:gap-8 px-2 sm:px-4">
+              {superiorLevelFaculties.map((title, idx) => (
+                <div key={idx} className="relative w-full max-w-[280px] sm:max-w-[320px] h-[200px] sm:h-[220px] md:h-[240px] flex items-center justify-center mx-auto">
+                  <SuperiorLevelSVG className="absolute top-0 left-0 w-full h-full z-0" />
+                  <span className="relative z-10 font-grange font-extrabold text-[#103951] text-xs sm:text-sm md:text-base leading-4 sm:leading-5 md:leading-6 text-center px-4 sm:px-6 py-3 sm:py-4 break-words hyphens-auto">
+                    {title}
+                  </span>
+                </div>
+              ))}
+            </div>
+            
+            {/* Version desktop : Ligne horizontale */}
+            <div className="hidden lg:flex flex-row items-center justify-center gap-[21px]">
+              {superiorLevelFaculties.map((title, idx) => (
+                <SuperiorLevelCard key={idx} title={title} />
+              ))}
+            </div>
           </div>
           
-          {/* Version desktop : Ligne horizontale */}
-          <div className="hidden lg:flex flex-row items-center justify-center gap-[21px]">
-            {superiorLevelFaculties.map((title, idx) => (
-              <SuperiorLevelCard key={idx} title={title} />
-            ))}
-          </div>
-        </div>
-        
-        {/* Boutons responsive */}
-        <div className="relative z-10 w-full max-w-[587px] mx-auto px-4">
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-[26px]">
-            <Link href="/inscription-tests" className="w-full sm:w-[279px] h-[44px] md:h-[48px] border border-white rounded-[8px] md:rounded-[10px] flex items-center justify-center font-grange font-extrabold text-base md:text-lg text-white transition hover:bg-white hover:text-[#0F3A42] no-underline">
-              En savoir plus
-            </Link>
-            <Link href="/inscription-tests" className="w-full sm:w-[282px] h-[44px] md:h-[48px] bg-[#489EAF] rounded-[8px] md:rounded-[10px] flex items-center justify-center font-grange font-extrabold text-base md:text-lg text-white transition hover:bg-[#357e8e] no-underline">
-              S'inscrire maintenant
-            </Link>
+          {/* Boutons responsive avec espacement */}
+          <div className="w-full max-w-[587px] mx-auto px-2 sm:px-4">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 md:gap-[26px]">
+              <Link href="/inscription-tests" className="w-full sm:w-[279px] h-[44px] md:h-[48px] border border-white rounded-[8px] md:rounded-[10px] flex items-center justify-center font-grange font-extrabold text-sm sm:text-base md:text-lg text-white transition hover:bg-white hover:text-[#0F3A42] no-underline">
+                En savoir plus
+              </Link>
+              <Link href="/inscription-tests" className="w-full sm:w-[282px] h-[44px] md:h-[48px] bg-[#489EAF] rounded-[8px] md:rounded-[10px] flex items-center justify-center font-grange font-extrabold text-sm sm:text-base md:text-lg text-white transition hover:bg-[#357e8e] no-underline">
+                S'inscrire maintenant
+              </Link>
+            </div>
           </div>
         </div>
       </section>
