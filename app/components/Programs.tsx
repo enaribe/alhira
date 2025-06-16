@@ -3,8 +3,242 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+
+// Types
+interface ClassData {
+  id: number;
+  type: 'class' | 'modalite';
+  title: string;
+  badge?: string;
+  badgeColor?: string;
+  icon: string;
+  label?: string;
+  description?: string;
+  duration?: string;
+  inscription?: string;
+  inscriptionLabel?: string;
+  inscriptionPrice?: string;
+  mensualiteLabel?: string;
+  mensualitePrice?: string;
+  manuel?: boolean;
+  button?: string;
+  bg?: string;
+}
+
+interface ProgramData {
+  level: string;
+  title: string;
+  description: string;
+  color: string;
+}
+
+interface NiveauCardProps {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  inscriptionUrl: string;
+}
+
+interface SpecialClassCardProps {
+  classe: ClassData;
+}
+
+interface ModaliteCardProps {
+  data: ClassData;
+}
+
+// SVG Components
+const IslamicCardSVG = ({ width, height, viewBox, className }: { width: string; height: string; viewBox: string; className?: string }) => (
+  <svg width={width} height={height} viewBox={viewBox} fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+    <path d="M301.157 68.0442C370.085 67.2555 390.439 98.2798 392 113.891V389C392 402.807 380.807 414 367 414H26C12.1929 414 1 402.807 1 389V113.891C7.74299 75.2416 64.3717 67.2226 91.8431 68.0442C98.8671 36.494 133.05 37.9729 156.463 29.5924C175.194 22.888 190.803 7.73729 196.266 1C221.084 28.6064 240.283 30.5783 270.252 37.9729C294.227 43.8886 300.845 60.4853 301.157 68.0442Z" fill="white" stroke="#D7E3ED"/>
+  </svg>
+);
+
+const NiveauCardSVG = ({ className }: { className?: string }) => (
+  <svg width="337" height="450" viewBox="0 0 337 450" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+    <path d="M258.168 68.0442C317.224 67.2555 334.663 98.2798 336 113.891V424C336 437.807 324.807 449 311 449H26C12.1929 449 1 437.807 1 424V113.891C6.77724 75.2416 55.2954 67.2226 78.8323 68.0442C84.8503 36.494 114.138 37.9729 134.198 29.5924C150.246 22.888 163.619 7.73729 168.299 1C189.563 28.6064 206.012 30.5783 231.689 37.9729C252.23 43.8886 257.9 60.4853 258.168 68.0442Z" fill="white" stroke="#D7E3ED"/>
+  </svg>
+);
+
+const SuperiorLevelSVG = ({ className }: { className?: string }) => (
+  <svg width="216" height="244" viewBox="0 0 216 244" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+    <path d="M165.28 49.0721C203.006 48.5066 214.146 70.7517 215 81.945V218C215 231.807 203.807 243 190 243H26C12.1929 243 1 231.807 1 218V81.945C4.69054 54.2328 35.6842 48.483 50.7198 49.0721C54.5641 26.4499 73.2731 27.5104 86.0874 21.5013C96.3389 16.6941 104.882 5.83078 107.872 1C121.455 20.7944 131.963 22.2083 148.365 27.5104C161.487 31.752 165.109 43.6522 165.28 49.0721Z" fill="white" stroke="#D7E3ED"/>
+  </svg>
+);
+
+const BookIcon = () => (
+  <svg width="82" height="70" viewBox="0 0 82 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M75.4902 9.97464L72.7806 5.68202C71.2805 3.30547 70.5304 2.1172 69.5478 2.00733C68.5651 1.89745 67.4681 3.02512 65.274 5.28046C58.1827 12.5697 51.0914 11.4928 44.0001 24.5995C36.9089 11.4928 29.8176 12.5697 22.7263 5.28046C20.5322 3.02512 19.4352 1.89745 18.4525 2.00733C17.4699 2.1172 16.7198 3.30547 15.2197 5.68202L12.5101 9.97464C11.4633 11.6331 10.9398 12.4624 11.0814 13.3352C11.2229 14.208 11.9778 14.8059 13.4877 16.0019L38.9451 36.1673C41.379 38.0953 42.5959 39.0592 44.0001 39.0592C45.4043 39.0592 46.6213 38.0953 49.0552 36.1673L74.5126 16.0019C76.0225 14.8059 76.7774 14.208 76.9189 13.3352C77.0605 12.4624 76.537 11.6331 75.4902 9.97464Z" stroke="#0F3A42" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M85.1771 22.5874L19.294 71.9997V52.6645M2.82324 22.5874L68.7063 71.9997V52.6645" stroke="#0F3A42" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+const ClockIcon = () => (
+  <svg width="22" height="22" viewBox="0 0 22 22" fill="none" className="flex-shrink-0">
+    <circle cx="11" cy="11" r="10" stroke="#0F3A42" strokeWidth="2"/>
+    <path d="M11 6v5l3 3" stroke="#0F3A42" strokeWidth="2"/>
+  </svg>
+);
+
+const LocationIcon = () => (
+  <svg width="28" height="28" viewBox="0 0 35 35" fill="none">
+    <rect x="0.5" y="0.5" width="34" height="34" rx="17" stroke="#B65D73"/>
+    <path d="M17.0818 27.5001C18.2089 27.5001 19.1227 26.5864 19.1227 25.4593C19.1227 24.3322 18.2089 23.4185 17.0818 23.4185C15.9547 23.4185 15.041 24.3322 15.041 25.4593C15.041 26.5864 15.9547 27.5001 17.0818 27.5001Z" fill="#B65D73"/>
+    <path d="M13 11.5816C13 9.32857 14.8286 7.5 17.0816 7.5C19.3347 7.5 21.1633 9.32857 21.1633 11.5816C21.1633 13.8347 19.3347 21.7857 17.0816 21.7857C14.8286 21.7857 13 13.8347 13 11.5816Z" fill="#B65D73"/>
+  </svg>
+);
+
+// Components
+const BackgroundImage = ({ src, alt, className }: { src: string; alt?: string; className?: string }) => (
+  <div className={`absolute inset-0 w-full h-full z-0 pointer-events-none ${className || ''}`}>
+    <img src={src} alt={alt || ""} className="w-full h-full object-cover" />
+  </div>
+);
+
+const SectionTitle = ({ children, className, style }: { children: React.ReactNode; className?: string; style?: React.CSSProperties }) => (
+  <h2 className={`font-grange font-extrabold text-center ${className || ''}`} style={style}>
+    {children}
+  </h2>
+);
+
+const NiveauCard = ({ icon, title, description, inscriptionUrl }: NiveauCardProps) => (
+  <div className="relative w-[337px] h-[450px] flex items-center justify-start bg-transparent">
+    <NiveauCardSVG className="absolute top-0 left-0 z-0" />
+    <div className="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-start z-10 p-8 pt-10 box-border">
+      {/* SVG décoratif */}
+      <div className="w-[88px] h-[74px] mb-0 flex justify-center items-center">
+        {/* <BookIcon /> */}
+      </div>
+      {/* Icône */}
+      <div className="w-[82px] h-[70px] mb-2.5 flex justify-center items-center">
+        {icon}
+      </div>
+      {/* Titre */}
+      <h3 className="font-grange font-extrabold text-xl leading-6 text-[#0F3A42] mb-3.5 w-full text-center">
+        {title}
+      </h3>
+      {/* Description */}
+      <p className="font-opensans font-normal text-sm leading-[26px] text-[#0F3A42] mb-6 w-full text-center max-w-[260px]">
+        {description}
+      </p>
+      {/* Bouton */}
+      <a
+        href={inscriptionUrl}
+        className="mt-auto w-full max-w-[274px] h-[46px] flex items-center justify-center bg-[#489EAF] rounded-[10px] text-white font-grange font-extrabold text-base leading-5 no-underline text-center mb-2 box-border hover:bg-[#357e8e] transition-colors"
+      >
+        S'inscrire
+      </a>
+    </div>
+  </div>
+);
+
+const SuperiorLevelCard = ({ title }: { title: string }) => (
+  <div className="relative w-[216px] h-[244px] flex items-center justify-center">
+    <SuperiorLevelSVG className="absolute top-0 left-0 w-full h-full z-0" />
+    <span className="relative z-10 font-grange font-extrabold text-[#103951] text-base md:text-lg leading-6 text-center px-4">
+      {title}
+    </span>
+  </div>
+);
+
+const SpecialClassCard = ({ classe }: SpecialClassCardProps) => (
+  <div className="relative w-[391px] h-[413px] flex flex-col items-center justify-between overflow-hidden">
+    <IslamicCardSVG 
+      width="391" 
+      height="413" 
+      viewBox="0 0 393 415" 
+      className="absolute top-0 left-0 w-full h-full z-0 pointer-events-none" 
+    />
+    
+    {/* Header avec icône et badge - descendu plus bas */}
+    <div className="flex flex-row justify-between items-center w-[326px] h-[26px] mt-[80px] mb-4 z-10">
+      <img src={classe.icon} alt="" className="w-[35px] h-[22px] mt-4" />
+      {classe.badge && (
+        <span className="font-grange font-extrabold text-lg leading-[26px] text-[#B65D73] mt-4">
+          {classe.badge}
+        </span>
+      )}
+    </div>
+    
+    {/* Contenu principal */}
+    <div className="flex flex-col items-start gap-4 w-[304px] z-10">
+      <h3 className="font-grange font-extrabold text-xl leading-[28px] text-[#0F3A42] mb-0">
+        {classe.title}
+      </h3>
+      <p className="font-opensans text-[15px] leading-[25px] text-[#0F3A42] font-normal mb-0">
+        {classe.description}
+      </p>
+      
+      {/* Durée */}
+      {classe.duration && (
+        <div className="flex flex-row items-center gap-[11px] w-[304px] h-[22px]">
+          <ClockIcon />
+          <span className="font-grange font-extrabold text-lg leading-[16px] text-[#0F3A42]">
+            {classe.duration}
+          </span>
+        </div>
+      )}
+    </div>
+    
+    {/* Bouton */}
+    <div className="w-full flex justify-center mb-8 z-10">
+      <button className="w-[90%] h-[46px] bg-[#489EAF] rounded-[10px] flex items-center justify-center font-grange font-extrabold text-lg leading-[12px] text-white hover:bg-[#357e8e] transition-colors">
+        {classe.inscription || 'S\'inscrire'}
+      </button>
+    </div>
+  </div>
+);
+
+const ModaliteCard = ({ data }: ModaliteCardProps) => (
+  <div className="relative w-[391px] h-[413px] flex flex-col items-center justify-between overflow-hidden">
+    <IslamicCardSVG 
+      width="391" 
+      height="413" 
+      viewBox="0 0 393 415" 
+      className="absolute top-0 left-0 w-full h-full z-0 pointer-events-none" 
+    />
+    
+    {/* Header avec icône - descendu plus bas */}
+    <div className="flex flex-row justify-between items-center w-[326px] h-[26px] mt-[80px] mb-4 z-10">
+      {/* <img src={data.icon} alt="" className="w-[35px] h-[22px] mt-4" /> */}
+    </div>
+    
+    {/* Contenu principal */}
+    <div className="flex flex-col items-start gap-4 w-[304px] z-10">
+      <h3 className="font-grange font-extrabold text-xl leading-[28px] text-[#0F3A42] mb-0">
+        {data.title}
+      </h3>
+      
+      <div className="mb-2">
+        <span className="font-grange font-extrabold text-[#103951]">{data.inscriptionLabel}: </span>
+        <span className="text-[#489EAF] font-grange font-extrabold">{data.inscriptionPrice}</span>
+      </div>
+      
+      <div className="mb-2">
+        <span className="font-grange font-extrabold text-[#103951]">{data.mensualiteLabel}: </span>
+        <span className="text-[#489EAF] font-grange font-extrabold">{data.mensualitePrice}</span>
+      </div>
+      
+      {data.manuel && (
+        <div className="flex items-center gap-2 mt-4 mb-4">
+          <LocationIcon />
+          <span className="font-grange font-extrabold text-[#B65D73]">Manuel offert</span>
+        </div>
+      )}
+    </div>
+    
+    {/* Bouton */}
+    <div className="w-full flex justify-center mb-8 z-10">
+      <button className="w-[90%] h-[46px] bg-[#489EAF] rounded-[10px] flex items-center justify-center font-grange font-extrabold text-lg leading-[12px] text-white hover:bg-[#357e8e] transition-colors">
+        {data.button || 'S\'inscrire'}
+      </button>
+    </div>
+  </div>
+);
+
 const Programs = () => {
-  const programs = [
+  // Data
+  const programs: ProgramData[] = [
     {
       level: "Débutant",
       title: "Niveau 1 (Débutant)",
@@ -25,7 +259,21 @@ const Programs = () => {
     }
   ];
 
-  const specialClasses = [
+  const createModaliteCard = (title: string = "Modalité des classes spéciales"): ClassData => ({
+    id: 99,
+    type: 'modalite',
+    title,
+    icon: "/images/bookdark.png",
+    bg: "bg-white",
+    inscriptionLabel: "Inscription",
+    inscriptionPrice: "25 000",
+    mensualiteLabel: "Mensualité",
+    mensualitePrice: "20 000",
+    manuel: true,
+    button: "S'inscrire"
+  });
+
+  const specialClasses: ClassData[] = [
     {
       id: 1,
       type: 'class',
@@ -74,23 +322,10 @@ const Programs = () => {
       duration: "18 semaines",
       inscription: "S'inscrire"
     },
-    {
-      id: 99,
-      type: 'modalite',
-      title: "Modalité des classes spéciales",
-      icon: "/images/bookdark.png",
-      bg: "bg-white",
-      inscriptionLabel: "Inscription",
-      inscriptionPrice: "25 000",
-      mensualiteLabel: "Mensualité",
-      mensualitePrice: "20 000",
-      manuel: true,
-      button: "Commencer maintenant"
-    },
-    // Ajoute d'autres objets ici pour d'autres cartes...
+    createModaliteCard()
   ];
 
-  const tafsirClasses = [
+  const tafsirClasses: ClassData[] = [
     {
       id: 1,
       type: 'class',
@@ -115,23 +350,10 @@ const Programs = () => {
       duration: "10 semaines",
       inscription: "S'inscrire"
     },
-    {
-      id: 99,
-      type: 'modalite',
-      title: "Modalité des classes spéciales",
-      icon: "/images/bookdark.png",
-      bg: "bg-white",
-      inscriptionLabel: "Inscription",
-      inscriptionPrice: "25 000",
-      mensualiteLabel: "Mensualité",
-      mensualitePrice: "20 000",
-      manuel: true,
-      button: "Commencer maintenant"
-    },
-    // ... autres classes tafsir
+    createModaliteCard()
   ];
 
-  const langueArabeClasses = [
+  const langueArabeClasses: ClassData[] = [
     {
       id: 1,
       type: 'class',
@@ -142,7 +364,7 @@ const Programs = () => {
       label: "Langue arabe",
       description: "Ce programme hebdomadaire est basé sur la série «الدروس اللغوية » pour les niveau Débutant.",
       duration: "14 semaines",
-      inscription: "S'inscrire"
+      inscription: "Voir le programme"
     },
     {
       id: 2,
@@ -154,7 +376,7 @@ const Programs = () => {
       label: "Langue arabe",
       description: "Ce programme hebdomadaire est basé sur la série «الدروس اللغوية » pour le niveau intermédiaire.",
       duration: "14 semaines",
-      inscription: "S'inscrire"
+      inscription: "Voir le programme"
     },
     {
       id: 3,
@@ -166,309 +388,141 @@ const Programs = () => {
       label: "Langue arabe",
       description: "Programme de Langue Arabe (2h/semaine) Ce programme hebdomadaire est basé sur la série «الدروس اللغوية» - niveau avancé.",
       duration: "14 semaines",
-      inscription: "S'inscrire"
+      inscription: "Voir le programme"
     },
-    {
-      id: 99,
-      type: 'modalite',
-      title: "Modalité des classes spéciales",
-      icon: "/images/bookdark.png",
-      bg: "bg-white",
-      inscriptionLabel: "Inscription",
-      inscriptionPrice: "25 000",
-      mensualiteLabel: "Mensualité",
-      mensualitePrice: "20 000",
-      manuel: true,
-      button: "Commencer maintenant"
-    }
-    // ... autres classes langue arabe
+    createModaliteCard()
   ];
 
+  const superiorLevelFaculties = [
+    "Faculté de la science du Coran",
+    "Faculté Tawhid",
+    "Faculté hadith",
+    "Faculté de la jurisprudence islamique (fiqh)",
+    "Faculté siirah (histoire du prophète Mouhamed PSL)"
+  ];
+
+  // State pour les onglets
   const [activeTab, setActiveTab] = useState('Memorisation');
 
   const tabs = [
-    { label: 'Memorisation', value: 'Memorisation' },
+    { label: 'Mémorisation du coran', value: 'Memorisation' },
     { label: 'Tafsir', value: 'Tafsir' },
     { label: 'Langue arabe', value: 'Langue arabe' },
   ];
 
-  let filteredClasses: any[] = [];
-  if (activeTab === 'Memorisation') {
-    filteredClasses = specialClasses;
-  } else if (activeTab === 'Tafsir') {
-    filteredClasses = tafsirClasses;
-  } else if (activeTab === 'Langue arabe') {
-    filteredClasses = langueArabeClasses;
-  }
+  const getActiveClasses = () => {
+    switch (activeTab) {
+      case 'Memorisation': return specialClasses;
+      case 'Tafsir': return tafsirClasses;
+      case 'Langue arabe': return langueArabeClasses;
+      default: return specialClasses;
+    }
+  };
 
   return (
-    <section className="py-20 px-4 md:px-6 lg:px-8 bg-white">
-      <div className="max-w-[1440px] mx-auto">
-        <h2 className="text-[#0F3A42] font-grange font-extrabold text-4xl md:text-5xl lg:text-[48px] mb-2 text-center">
+    <div className='relative'>
+      {/* Titre principal */}
+      <SectionTitle className="relative z-10 text-[#0F3A42] text-2xl md:text-3xl lg:text-4xl mb-16 mt-16">
           Nos programmes d'enseignement
-        </h2>
-        <div className="flex justify-center">
-          <svg width="443" height="210" viewBox="0 0 443 210" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M201.062 105.219L204.971 101.311L208.879 105.219L204.971 109.127L201.062 105.219Z" fill="#0F3A42" strokeWidth="1"/>
-            <path d="M0 104.937L194.547 102.61L197.748 105.811L194.573 108.985L0 104.937Z" fill="#0F3A42" strokeWidth="1"/>
-            <path d="M234.523 105.093L237.738 101.879L443 104.937L237.733 108.302L234.523 105.093Z" fill="#0F3A42" strokeWidth="1"/>
-            <path d="M223.391 105.219L227.299 101.311L231.207 105.219L227.299 109.127L223.391 105.219Z" fill="#0F3A42" strokeWidth="1"/>
-            <path d="M220.084 105.254C220.084 107.433 218.318 109.199 216.14 109.199C213.961 109.199 212.195 107.433 212.195 105.254C212.195 103.076 213.961 101.31 216.14 101.31C218.318 101.31 220.084 103.076 220.084 105.254Z" fill="#0F3A42" strokeWidth="1"/>
-          </svg>
-        </div>
+      </SectionTitle>
 
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
-          {programs.map((program, index) => (
-            <div 
-              key={index}
-              className="relative box-border w-[370px] h-[457px] border border-[#D7E3ED] rounded-[25px] bg-white overflow-hidden flex flex-col mx-auto"
-              style={{minWidth: 370, minHeight: 457}}
-            >
-              {/* Bandeau supérieur */}
-              <div className="relative w-full h-[213px] bg-[#0F3A42] rounded-t-[25px] overflow-hidden">
-                {/* Motif décoratif */}
-                <div className="absolute left-[64px] top-[16px] opacity-30 pointer-events-none">
-                  {/* Remplacez ce SVG par votre motif réel */}
-                  <svg width="246" height="186" viewBox="0 0 246 186" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g opacity="0.3">
-                    <path d="M134.026 128.043H127.719V133.51L123.094 138.135L127.719 142.76V149.067H134.026L138.652 153.693L143.277 149.067H148.743V142.76L153.368 138.135L148.743 133.51V128.043H143.277L138.652 123.418L134.026 128.043Z" stroke="white" strokeOpacity="0.3" strokeWidth="2"/>
-                    <path d="M164.301 128.043H157.993V133.51L153.368 138.135L157.993 142.76V149.067H164.301L168.926 153.693L173.551 149.067H179.018V142.76L183.643 138.135L179.018 133.51V128.043H173.551L168.926 123.418L164.301 128.043Z" stroke="white" strokeOpacity="0.3" strokeWidth="2"/>
-                    <path d="M194.576 128.043H188.269V133.51L183.644 138.135L188.269 142.76V149.067H194.576L199.201 153.693L203.827 149.067H209.293V142.76L213.918 138.135L209.293 133.51V128.043H203.827L199.201 123.418L194.576 128.043Z" stroke="white" strokeOpacity="0.3" strokeWidth="2"/>
-                    <path d="M224.85 128.043H218.543V133.51L213.918 138.135L218.543 142.76V149.067H224.85L229.476 153.693L234.101 149.067H239.567V142.76L244.193 138.135L239.567 133.51V128.043H234.101L229.476 123.418L224.85 128.043Z" stroke="white" strokeOpacity="0.3" strokeWidth="2"/>
-                    <path d="M134.026 158.318H127.719V163.784L123.094 168.409L127.719 173.035V179.342H134.026L138.652 183.967L143.277 179.342H148.743V173.035L153.368 168.409L148.743 163.784V158.318H143.277L138.652 153.692L134.026 158.318Z" stroke="white" strokeOpacity="0.3" strokeWidth="2"/>
-                    <path d="M164.301 158.318H157.993V163.784L153.368 168.409L157.993 173.035V179.342H164.301L168.926 183.967L173.551 179.342H179.018V173.035L183.643 168.409L179.018 163.784V158.318H173.551L168.926 153.692L164.301 158.318Z" stroke="white" strokeOpacity="0.3" strokeWidth="2"/>
-                    <path d="M194.576 158.318H188.269V163.784L183.644 168.409L188.269 173.035V179.342H194.576L199.201 183.967L203.827 179.342H209.293V173.035L213.918 168.409L209.293 163.784V158.318H203.827L199.201 153.692L194.576 158.318Z" stroke="white" strokeOpacity="0.3" strokeWidth="2"/>
-                    <path d="M224.85 158.318H218.543V163.784L213.918 168.409L218.543 173.035V179.342H224.85L229.476 183.967L234.101 179.342H239.567V173.035L244.193 168.409L239.567 163.784V158.318H234.101L229.476 153.692L224.85 158.318Z" stroke="white" strokeOpacity="0.3" strokeWidth="2"/>
-                    <path d="M134.026 67.1751H127.719V72.6414L123.094 77.2667L127.719 81.892V88.1992H134.026L138.652 92.8245L143.277 88.1992H148.743V81.892L153.368 77.2667L148.743 72.6414V67.1751H143.277L138.652 62.5498L134.026 67.1751Z" stroke="white" strokeOpacity="0.3" strokeWidth="2"/>
-                    <path d="M164.301 67.1751H157.993V72.6414L153.368 77.2667L157.993 81.892V88.1992H164.301L168.926 92.8245L173.551 88.1992H179.018V81.892L183.643 77.2667L179.018 72.6414V67.1751H173.551L168.926 62.5498L164.301 67.1751Z" stroke="white" strokeOpacity="0.3" strokeWidth="2"/>
-                    <path d="M194.576 67.1751H188.269V72.6414L183.644 77.2667L188.269 81.892V88.1992H194.576L199.201 92.8245L203.827 88.1992H209.293V81.892L213.918 77.2667L209.293 72.6414V67.1751H203.827L199.201 62.5498L194.576 67.1751Z" stroke="white" strokeOpacity="0.3" strokeWidth="2"/>
-                    <path d="M224.85 67.1751H218.543V72.6414L213.918 77.2667L218.543 81.892V88.1992H224.85L229.476 92.8245L234.101 88.1992H239.567V81.892L244.193 77.2667L239.567 72.6414V67.1751H234.101L229.476 62.5498L224.85 67.1751Z" stroke="white" strokeOpacity="0.3" strokeWidth="2"/>
-                    <path d="M134.026 36.8997H127.719V42.366L2.00293 46.9913L6.62823 51.6166V57.9238H134.026L17.5608 62.5491L22.1861 57.9238H27.6523V51.6166L32.2776 46.9913L27.6523 42.366V36.8997H22.1861L17.5608 32.2744L12.9355 36.8997Z" stroke="white" strokeOpacity="0.3" strokeWidth="2"/>
-                    <path d="M43.2099 36.8997H36.9026V42.366L32.2773 46.9913L36.9026 51.6166V57.9238H43.2099L47.8352 62.5491L52.4605 57.9238H57.9267V51.6166L62.552 46.9913L57.9267 42.366V36.8997H52.4605L47.8352 32.2744L43.2099 36.8997Z" stroke="white" strokeOpacity="0.3" strokeWidth="2"/>
-                    <path d="M73.4843 36.8997H67.1771V42.366L62.5518 46.9913L67.1771 51.6166V57.9238H73.4843L78.1096 62.5491L82.7349 57.9238H88.2011V51.6166L92.8264 46.9913L88.2011 42.366V36.8997H82.7349L78.1096 32.2744L73.4843 36.8997Z" stroke="white" strokeOpacity="0.3" strokeWidth="2"/>
-                    <path d="M103.76 36.8997H97.4524V42.366L92.8271 46.9913L97.4524 51.6166V57.9238H103.76L108.385 62.5491L113.01 57.9238H118.477V51.6166L123.102 46.9913L118.477 42.366V36.8997H113.01L108.385 32.2744L103.76 36.8997Z" stroke="white" strokeOpacity="0.3" strokeWidth="2"/>
-                    </g>
-                  </svg>
-
-                </div>
-                {/* Badge niveau */}
-                <span className="absolute top-4 right-6 bg-white text-[#B65D73] font-grange font-extrabold text-base px-4 py-1 rounded-xl shadow">
-                  {program.level}
-                </span>
-                {/* Icône livre */}
-                <div className="absolute left-[15px] top-[14px] w-[39px] h-[25px]">
-                  {/* Remplacez ce SVG par votre icône */}
-                  <Image 
-                    src="/images/book.png"
-                    width={39}
-                    height={25}
-                    alt="Icône livre"
-                    
-                  />
-
-                </div>
-              </div>
-              {/* Contenu principal */}
-              <div className="flex-1 flex flex-col px-7 pt-6 pb-0">
-                <h3 className="font-grange font-extrabold text-[24px] leading-[30px] text-[#0F3A42] mb-2">
-                  {program.title}
-                </h3>
-                <p className="font-opensans text-[#0F3A42] text-[14px] leading-[26px] mb-8">
-                  {program.description}
-                </p>
-                <div className="flex justify-center mb-4">
-                  <Link
-                    href={`/inscription-tests`}
-                    className="w-[311px] h-[46px] flex items-center justify-center bg-[#489EAF] text-white font-grange text-lg font-extrabold rounded-[10px] hover:bg-[#357e8e] transition-colors"
-                  >
-                    Détails du programme
-                  </Link>
-                </div>
-              </div>
-            </div>
+      {/* Section Niveaux classiques */}
+      <section className="relative py-20 px-4 md:px-6 lg:px-8 bg-white overflow-x-hidden">
+        <BackgroundImage src="/images/nclassic.png" />
+        
+        <SectionTitle 
+          className="relative z-10 text-white text-3xl md:text-4xl lg:text-5xl mb-12" 
+          style={{ lineHeight: '1.1' }}
+        >
+          Niveaux classiques
+        </SectionTitle>
+        
+        <div className="relative z-10 flex flex-col lg:flex-row items-center justify-center gap-8">
+          {programs.map((program, idx) => (
+            <NiveauCard
+              key={idx}
+              icon={<BookIcon />}
+              title={program.title}
+              description={program.description}
+              inscriptionUrl="/inscription-tests"
+            />
           ))}
-          
         </div>
+      </section>
 
-        <div className="flex flex-col md:flex-row gap-8 mt-8 px-7">
-          {/* Niveau supérieur card (2/3 width) */}
-          <div className="relative box-border w-full md:w-2/3 h-auto border border-[#D7E3ED] rounded-[25px] overflow-hidden flex flex-col md:flex-row shadow-lg">
-            {/* Left column: motif + icon */}
-            <div className="relative md:w-[35%] w-full bg-[#0F3A42] p-5 flex flex-col items-start rounded-l-[25px]">
-              {/* Motif SVG and icon as before */}
-              {/* REMPLACEZ CECI par votre SVG ou composant Image pour le motif */}
-              {/* Exemple avec un SVG placeholder (le motif réel est plus complexe, basé sur l'image) */}
-              <div className="absolute inset-0 opacity-20 pointer-events-none">
-                <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" className="object-cover">
-                  <defs>
-                    <pattern id="motifNiveauSup" patternUnits="userSpaceOnUse" width="60" height="60" patternTransform="scale(0.7)">
-                      {/* Ceci est un placeholder très simplifié du motif. Vous devrez utiliser votre propre SVG. */}
-                      <path d="M30,0 L35.18,14.82 L50,19.1 L35.18,23.36 L30,38.18 L24.82,23.36 L10,19.1 L24.82,14.82 Z" fill="rgba(255,255,255,0.1)"/>
-                      <circle cx="10" cy="10" r="3" fill="rgba(255,255,255,0.05)"/>
-                      <circle cx="50" cy="50" r="3" fill="rgba(255,255,255,0.05)"/>
-                      <circle cx="10" cy="50" r="2" fill="rgba(255,255,255,0.05)"/>
-                      <circle cx="50" cy="10" r="2" fill="rgba(255,255,255,0.05)"/>
-                    </pattern>
-                  </defs>
-                  <rect width="100%" height="100%" fill="url(#motifNiveauSup)" />
-                </svg>
+      {/* Section Niveau supérieur */}
+      <section className="relative w-full min-h-[573px] flex flex-col items-center justify-center overflow-x-hidden mt-12">
+        <div className="absolute left-[-10px] top-0 w-[1462px] h-[573px] z-0 pointer-events-none">
+          <img src="/images/nclassic2.png" alt="" className="w-full h-full object-cover" />
               </div>
 
-              {/* Icône livre (Blanche) */}
-              <div className="relative z-10 w-[39px] h-[25px] mb-auto"> {/* mb-auto pour pousser vers le bas si autre contenu ajouté plus tard */}
-                <Image
-                  src="/images/book.png" // Assurez-vous que ce chemin pointe vers une icône de livre BLANCHE
-                  width={39}
-                  height={25}
-                  alt="Icône livre"
-                />
-              </div>
-              {/* Espace pour s'assurer que la colonne a une hauteur minimale si le contenu de droite est court, ou pour l'esthétique */}
-              <div className="mt-auto invisible md:min-h-[150px]"></div> {/* Ajuster min-h ou supprimer si non nécessaire */}
-            </div>
-
-            {/* Colonne Droite (Contenu Principal Blanc) */}
-            <div className="flex-1 flex flex-col px-7 py-6 bg-white">
-              <h3 className="font-grange font-extrabold text-[24px] leading-[30px] text-[#0F3A42] mb-4">
-                Niveau supérieur
-              </h3>
-              <ul className="list-disc pl-5 text-[#0F3A42] text-[14px] leading-[26px] space-y-1"> {/* space-y-1 pour un léger espacement entre les li */}
-                <li>Faculté de la science du Coran</li>
-                <li>Faculté Tawhid</li>
-                <li>Faculté de la jurisprudence islamique (fiqh)</li>
-                <li>Faculté siirah (histoire du prophète Mouhamed PSL)</li>
-                <li>Faculté hadith</li>
-              </ul>
-            </div>
+        <SectionTitle 
+          className="relative z-10 text-white text-2xl md:text-3xl lg:text-4xl mb-12" 
+          style={{lineHeight: '1.1'}}
+        >
+          Niveau supérieur
+        </SectionTitle>
+        
+        <div className="relative z-10 flex flex-row items-center justify-center gap-[21px] w-full max-w-[1155px] mx-auto mb-12">
+          {superiorLevelFaculties.map((title, idx) => (
+            <SuperiorLevelCard key={idx} title={title} />
+          ))}
           </div>
 
-          {/* Carte Classe Spéciales */}
-          <div className="relative box-border w-full md:w-1/3 h-auto border border-[#D7E3ED] rounded-[25px] bg-white overflow-hidden flex flex-col shadow-lg">
-            {/* Title and icon */}
-            <div className="flex items-center justify-between px-6 pt-6">
-              <h3 className="font-grange font-extrabold text-[24px] leading-[30px] text-[#0F3A42] mb-4">
-                Modalité des classes
-              </h3>
-              <Image src="/images/bookdark.png" width={35} height={22} alt="" />
-            </div>
-            {/* Price blocks */}
-            <div className="flex flex-col gap-4 px-6 mt-2">
-              <div className="flex flex-row gap-3 items-center">
-                <span className="font-grange font-extrabold text-[16px] leading-[22px] text-[#0F3A42]">Inscription: <span className="text-[#489EAF]">20 000</span></span>
-              </div>
-              <div className="flex flex-row gap-3 items-center">
-                <span className="font-grange font-extrabold text-[16px] leading-[22px] text-[#0F3A42]">Mensualité: <span className="text-[#489EAF]">15 000</span></span>
-              </div>
-            </div>
-            {/* Manuel offert */}
-            <div className="flex flex-row items-center gap-4 px-6 mt-4">
-              <div className="flex items-center justify-center w-[28px] h-[28px] border border-[#B65D73] rounded-full">
-                {/* Replace with your SVG or icon */}
-                <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="0.5" y="0.5" width="34" height="34" rx="17" stroke="#B65D73"/>
-                <path d="M17.0818 27.5001C18.2089 27.5001 19.1227 26.5864 19.1227 25.4593C19.1227 24.3322 18.2089 23.4185 17.0818 23.4185C15.9547 23.4185 15.041 24.3322 15.041 25.4593C15.041 26.5864 15.9547 27.5001 17.0818 27.5001Z" fill="#B65D73"/>
-                <path d="M13 11.5816C13 9.32857 14.8286 7.5 17.0816 7.5C19.3347 7.5 21.1633 9.32857 21.1633 11.5816C21.1633 13.8347 19.3347 21.7857 17.0816 21.7857C14.8286 21.7857 13 13.8347 13 11.5816Z" fill="#B65D73"/>
-                </svg>
-
-              </div>
-              <span className="font-grange font-extrabold text-[16px] leading-[22px] text-[#B65D73]">Manuel offert</span>
-            </div>
-            {/* Commencer maintenant button */}
-            <div className="flex justify-center mt-8 mb-6">
-              <button className="bg-[#489EAF] text-white font-grange font-extrabold text-[18px] leading-[26px] rounded-[10px] w-4/5 py-2 shadow-lg">
-                Commencer maintenant
+        <div className="relative z-10 flex flex-row items-center justify-center gap-[26px] w-full max-w-[587px] mx-auto">
+          <button className="w-[279px] h-[48px] border border-white rounded-[10px] flex items-center justify-center font-grange font-extrabold text-lg text-white transition hover:bg-white hover:text-[#0F3A42]">
+            En savoir plus
+          </button>
+          <button className="w-[282px] h-[48px] bg-[#489EAF] rounded-[10px] flex items-center justify-center font-grange font-extrabold text-lg text-white transition hover:bg-[#357e8e]">
+            S'inscrire maintenant
               </button>
-            </div>
-          </div>
         </div>
-        <div className="mt-10 ml-6">
-          <h2 className="text-[#0F3A42] font-grange font-extrabold text-[34px] leading-[11px] mb-8">
+      </section>
+
+      {/* Section Classes spéciales */}
+      <section className="relative w-full py-16 md:py-24 bg-[#F2F4F6] flex flex-col items-center">
+        <SectionTitle className="text-[#0F3A42] text-2xl md:text-3xl lg:text-4xl mb-8">
             Classes spéciales
-          </h2>
-          {/* Onglets de sélection */}
-          <div className="flex gap-4 md:gap-6 mb-10 flex-wrap md:flex-nowrap overflow-x-auto scrollbar-hide justify-start px-0">
-            {tabs.map(tab => (
+        </SectionTitle>
+        
+        {/* Système d'onglets fonctionnel */}
+        <div className="w-full max-w-4xl mb-12">
+          <div className="flex border border-[#D7E3ED] rounded-[16px] overflow-hidden">
+            {tabs.map((tab) => (
               <button
                 key={tab.value}
                 onClick={() => setActiveTab(tab.value)}
-                className={`min-w-[150px] px-4 md:px-6 py-1.5 rounded-full border text-[16px] md:text-[18px] font-grange font-bold transition-all duration-150 whitespace-nowrap
-                  ${activeTab === tab.value
-                    ? 'bg-[#F2F4F6] border-[#0F3A42] text-[#0F3A42] shadow'
-                    : 'bg-white border-[#D7E3ED] text-[#A0AEC0]'}
-                `}
+                className={`flex-1 py-3 text-center font-grange font-bold transition-colors ${
+                  activeTab === tab.value
+                    ? 'text-[#0F3A42] bg-white'
+                    : 'text-[#6B7280] bg-gray-50 hover:bg-gray-100'
+                }`}
               >
                 {tab.label}
               </button>
             ))}
           </div>
         </div>
-        <div className="w-full flex flex-col md:flex-row gap-y-8 md:gap-x-8 justify-center items-center mt-10">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full place-items-center">
-            {filteredClasses.map((classe) => (
-              classe.type === 'modalite' ? (
-                <div key={classe.id} className={`relative box-border w-full h-auto border border-[#D7E3ED] rounded-[25px] ${classe.bg || 'bg-[#F2F4F6]'} overflow-hidden flex flex-col min-w-0 max-w-[384px] min-h-[450px]`}>
-                  <div className="flex flex-col items-start px-6 pt-8 pb-4 flex-1">
-                    <Image src={classe.icon} width={45} height={30} alt="" className="mb-4" />
-                    <h3 className="font-grange font-extrabold text-[24px] leading-[30px] text-[#0F3A42] mt-6 mb-6">
-                      {classe.title}
+        
+        {/* Titre de section dynamique */}
+        <div className="w-full text-center mb-8">
+          <h3 className="font-grange font-extrabold text-[#0F3A42] text-xl">
+            {activeTab}
                     </h3>
-                    <div className="flex flex-col gap-4 w-full max-w-[260px] mb-6">
-                      <div className="flex flex-row gap-3 items-center">
-                        <span className="font-grange font-bold text-[20px] leading-[22px] text-[#0F3A42]">{classe.inscriptionLabel}: <span className="text-[#489EAF]">{classe.inscriptionPrice}</span></span>
                       </div>
-                      <div className="flex flex-row gap-3 items-center">
-                        <span className="font-grange font-bold text-[20px] leading-[22px] text-[#0F3A42]">{classe.mensualiteLabel}: <span className="text-[#489EAF]">{classe.mensualitePrice}</span></span>
-                      </div>
-                    </div>
-                    {classe.manuel && (
-                      <div className="flex flex-row items-center gap-4 mb-6 mt-6">
-                        <div className="flex items-center justify-center w-[28px] h-[28px] border border-[#B65D73] rounded-full">
-                          <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.5" y="0.5" width="34" height="34" rx="17" stroke="#B65D73"/>
-                            <path d="M17.0818 27.5001C18.2089 27.5001 19.1227 26.5864 19.1227 25.4593C19.1227 24.3322 18.2089 23.4185 17.0818 23.4185C15.9547 23.4185 15.041 24.3322 15.041 25.4593C15.041 26.5864 15.9547 27.5001 17.0818 27.5001Z" fill="#B65D73"/>
-                            <path d="M13 11.5816C13 9.32857 14.8286 7.5 17.0816 7.5C19.3347 7.5 21.1633 9.32857 21.1633 11.5816C21.1633 13.8347 19.3347 21.7857 17.0816 21.7857C14.8286 21.7857 13 13.8347 13 11.5816Z" fill="#B65D73"/>
-                          </svg>
-                        </div>
-                        <span className="font-grange font-extrabold text-[16px] leading-[22px] text-[#B65D73]">Manuel offert</span>
-                      </div>
-                    )}
-                  </div>
-                  <div className="flex justify-center mt-auto mb-6">
-                    <button className="bg-[#489EAF] text-white font-grange font-extrabold text-[18px] leading-[26px] rounded-[10px] w-4/5 py-2 shadow-lg">
-                      {classe.button}
-                    </button>
-                  </div>
-                </div>
-              ) : (
-                <div key={classe.id} className="bg-[#F2F4F6] border border-[#D7E3ED] rounded-[25px] p-6 sm:p-8 w-full max-w-[384px] min-h-[450px] flex flex-col relative min-w-0">
-                  <div className="flex items-center justify-between mb-8">
-                    <img src={classe.icon} alt="" className="w-[45px] h-[30px] object-contain" />
-                    <span className="text-[#B65D73] font-grange font-bold text-[16px]">{classe.badge}</span>
-                  </div>
-                  <div className="inline-flex flex-row gap-2 border border-[#0F3A42] rounded-[10px] px-4 py-2 mb-6 w-fit">
-                    <p className="font-grange font-extrabold text-[16px] text-[#0F3A42]">{classe.label}</p>
-                  </div>
-                  <h3 className="font-grange font-extrabold text-[20px] leading-[30px] text-[#0F3A42] mb-6">{classe.title}</h3>
-                  <p className="font-opensans text-[16px] text-[#0F3A42] font-medium leading-[28px] mb-8">
-                    {classe.description}
-                  </p>
-                  <div className="flex items-center gap-4 mb-2">
-                    {/* Icône horloge */}
-                    <svg width="24" height="24" fill="none" stroke="#0F3A42" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 7v5l3 3"/></svg>
-                    <span className="font-grange font-extrabold text-[18px] text-[#0F3A42]">{classe.duration}</span>
-                  </div>
-                  <Link href="/inscription-tests" className="bg-[#489EAF] text-center text-white font-grange font-extrabold text-[20px] rounded-[10px] px-8 py-2 mt-auto hover:bg-[#3A8A9B] transition-colors">
-                    {classe.inscription}
-                  </Link>
-                </div>
+        
+        {/* Grille des cartes avec plus d'espacement */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 w-full max-w-7xl px-4">
+          {getActiveClasses().map((classe) => (
+            classe.type === 'class' ? (
+              <SpecialClassCard key={classe.id} classe={classe} />
+            ) : (
+              <ModaliteCard key={classe.id} data={classe} />
               )
             ))}
-          </div>
-          
         </div>
+      </section>
       </div>
-    </section>
   );
 };
 
