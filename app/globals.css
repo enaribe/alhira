@@ -1,8 +1,18 @@
 @import "tailwindcss";
 
+/* Import de la font Grange Bold */
+@font-face {
+  font-family: 'Grange';
+  src: url('/assets/fonts/grange-bold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --font-grange: 'Grange', sans-serif;
 }
 
 @theme inline {
@@ -10,6 +20,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-grange: var(--font-grange);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -31,9 +42,34 @@ html {
 
 
 
-/* .font-grange {
-  font-family: 'grange';
-  font-weight: '800';
-} */
+/* Classes utilitaires pour Grange */
+.font-grange {
+  font-family: var(--font-grange);
+  font-weight: bold;
+}
+
+.font-grange-bold {
+  font-family: var(--font-grange);
+  font-weight: bold;
+}
+
+.font-grange-extrabold {
+  font-family: var(--font-grange);
+  font-weight: bold; /* La font est déjà bold par nature */
+}
+
+/* Application de Grange aux titres par défaut */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-grange);
+  font-weight: bold;
+}
+
+/* Classes Tailwind personnalisées pour Grange */
+@media (min-width: 1px) {
+  .text-grange {
+    font-family: var(--font-grange);
+    font-weight: bold;
+  }
+}
 
 
