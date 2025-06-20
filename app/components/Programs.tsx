@@ -254,7 +254,7 @@ const Programs = () => {
     {
       level: "Avancé",
       title: "Niveau 3 (Avancé)",
-      description: "Jurisprudence islamique approfondie, usul al-fiqh, étude des piliers de l'Islam, hadith et tawhid pour étudiants confirmés.",
+      description: "Approfondissement de la lecture du coran (avancé), Jurisprudence islamique approfondie, usul al-fiqh, étude des piliers de l'Islam, hadith et tawhid pour étudiants confirmés.",
       color: "#0F3A42"
     }
   ];
@@ -283,7 +283,7 @@ const Programs = () => {
       badgeColor: "#B65D73",
       icon: "/images/bookdark.png",
       label: "Mémorisation du coran",
-      description: "De la sourate Ad-Duha (93) á An-Nas (114) avec 2 heures par semaine",
+      description: "De la sourate Ad-Duha (93) á An-Nas (114) - 2 heures par semaine",
       duration: "18 semaines",
       inscription: "S'inscrire"
     },
@@ -295,7 +295,7 @@ const Programs = () => {
       badgeColor: "#B65D73",
       icon: "/images/bookdark.png",
       label: "Mémorisation du coran",
-      description: "De la sourate A'la (87) á Ad-Duha (93) avec 2 heures par semaine",
+      description: "De la sourate A'la (87) á Ad-Duha (93) - 2 heures par semaine",
       duration: "18 semaines",
       inscription: "S'inscrire"
     },
@@ -307,7 +307,7 @@ const Programs = () => {
       badgeColor: "#B65D73",
       icon: "/images/bookdark.png",
       label: "Mémorisation du coran",
-      description: "De la sourate An-Naba (78) á Al-A'la (87) avec 2 heures par semaine",
+      description: "De la sourate An-Naba (78) á Al-A'la (87) - 2 heures par semaine",
       duration: "18 semaines",
       inscription: "S'inscrire"
     },
@@ -319,7 +319,7 @@ const Programs = () => {
       badgeColor: "#B65D73",
       icon: "/images/bookdark.png",
       label: "Mémorisation du coran",
-      description: "Sourate Yasin (36) - Formation de 26 heures répartie sur 13 semaines (2h par séance)",
+      description: "Sourate Yasin (36) - Formation de 26 heures répartie sur 13 semaines (2h par semaine)",
       duration: "18 semaines",
       inscription: "S'inscrire"
     }
@@ -335,7 +335,7 @@ const Programs = () => {
       badgeColor: "#489EAF",
       icon: "/images/bookdark.png",
       label: "Tafsir du Coran",
-      description: "De la sourate A' La (87) á An-Nas (114) avec 2 heures par semaine.",
+      description: "De la sourate A' La (87) á An-Nas (114) - 2 heures par semaine.",
       duration: "9 semaines",
       inscription: "S'inscrire"
     },
@@ -347,7 +347,7 @@ const Programs = () => {
       badgeColor: "#489EAF",
       icon: "/images/bookdark.png",
       label: "Tafsir du Coran",
-      description: "De la sourate la caverne (18).",
+      description: "De la sourate la caverne (18) - 2 heures par semaine",
       duration: "10 semaines",
       inscription: "S'inscrire"
     }
@@ -363,7 +363,7 @@ const Programs = () => {
       badgeColor: "#0F3A42",
       icon: "/images/bookdark.png",
       label: "Langue arabe",
-      description: "Ce programme hebdomadaire est basé sur la série «الدروس اللغوية » pour les niveau Débutant.",
+      description: "Ce programme hebdomadaire est basé sur la série «الدروس اللغوية » pour le niveau Débutant.",
       duration: "14 semaines",
       inscription: "Voir le programme"
     },
