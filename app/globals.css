@@ -23,10 +23,26 @@
   --font-grange: var(--font-grange);
 }
 
+/* Forcer le mode light - désactiver complètement le mode dark */
+html {
+  color-scheme: light !important;
+}
+
+/* Supprimer l'adaptation au mode dark */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #ffffff !important;
+    --foreground: #171717 !important;
+  }
+  
+  body {
+    background: #ffffff !important;
+    color: #171717 !important;
+  }
+  
+  /* Forcer tous les éléments à rester en mode light */
+  * {
+    color-scheme: light !important;
   }
 }
 
@@ -70,6 +86,35 @@ h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-grange);
     font-weight: bold;
   }
+}
+
+/* Animations pour le modal */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.2s ease-out;
+}
+
+.animate-slideIn {
+  animation: slideIn 0.3s ease-out;
 }
 
 

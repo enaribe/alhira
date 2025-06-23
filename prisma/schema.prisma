@@ -13,14 +13,55 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// Nouveau modèle unifié pour tous les tests de niveau
 model TestInscription {
   id        Int      @id @default(autoincrement())
+  
+  // Informations personnelles (obligatoires)
   nom       String
-  prenom    String
   numero    String
-  niveau    String
-  document  String
-  audio     String
+  niveau    String   // "debutant", "intermediaire", "avance", "superieur", "speciales"
+  
+  // Informations personnelles étendues (pour nouveaux tests)
+  prenom    String?  // Optionnel, utilisé pour anciens formats
+  adresseMail String?
+  localite    String?
+  objectifsApprentissage String?
+  
+  // Fichiers (optionnels selon le type de test)
+  document  String?  // Pour anciens formats
+  audio     String?  // Pour anciens formats ou niveau 2
+  
+  // Format du test
+  testFormat String @default("classic") // "classic" ou "interactive"
+  
+  // Réponses du test (JSON flexible)
+  reponses  Json?    // Stockage flexible de toutes les réponses
+  
+  // Métadonnées
   statut    String   @default("En attente")
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Relations
+  etapes    TestEtape[]
+  
+  @@map("test_inscriptions")
+}
+
+// Modèle pour les étapes de test (pour tests interactifs multi-étapes)
+model TestEtape {
+  id          Int    @id @default(autoincrement())
+  testId      Int
+  etapeNumero Int    // 1, 2, 3, 4, etc.
+  titre       String // "Lecture Arabe", "Tajwid", "Fiqh", etc.
+  reponses    Json   // Réponses spécifiques à cette étape
+  completee   Boolean @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relation avec le test principal
+  test        TestInscription @relation(fields: [testId], references: [id], onDelete: Cascade)
+  
+  @@map("test_etapes")
 }
