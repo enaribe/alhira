@@ -13,62 +13,41 @@ type RouteParams = {
 // Handler DELETE - Supprimer une inscription
 export async function DELETE(
   req: NextRequest,
-  context: RouteParams
+  { params }: { params: { id: string } }
 ) {
   try {
-    // Attendre la résolution des paramètres
-    const { id: idParam } = await context.params;
-    const id = Number(idParam);
+    const id = parseInt(params.id);
     
-    if (isNaN(id)) {
-      return NextResponse.json({ error: "ID invalide" }, { status: 400 });
-    }
-
-    const test = await prisma.testInscription.findUnique({ where: { id } });
-    if (!test) {
-      return NextResponse.json({ error: "Test non trouvé" }, { status: 404 });
-    }
-
-    // Si tu veux supprimer aussi des fichiers liés depuis Vercel Blob,
-    // tu peux le faire ici en utilisant l'API `del()` de @vercel/blob
-
-    await prisma.testInscription.delete({ where: { id } });
+    await prisma.testInscription.delete({
+      where: { id },
+    });
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("Erreur DELETE:", error);
-    return NextResponse.json(
-      { error: "Test non trouvé ou erreur serveur" },
-      { status: 500 }
-    );
+    console.error("Erreur lors de la suppression:", error);
+    return NextResponse.json({ error: "Erreur serveur" }, { status: 500 });
   }
 }
 
 // Handler PATCH - Valider une inscription
 export async function PATCH(
   req: NextRequest,
-  context: RouteParams
+  { params }: { params: { id: string } }
 ) {
   try {
-    // Attendre la résolution des paramètres
-    const { id: idParam } = await context.params;
-    const id = Number(idParam);
+    const id = parseInt(params.id);
+    const body = await req.json();
     
-    if (isNaN(id)) {
-      return NextResponse.json({ error: "ID invalide" }, { status: 400 });
-    }
-
     const test = await prisma.testInscription.update({
       where: { id },
-      data: { statut: "Validé" },
+      data: {
+        statut: body.statut,
+      },
     });
 
     return NextResponse.json(test);
   } catch (error) {
-    console.error("Erreur PATCH:", error);
-    return NextResponse.json(
-      { error: "Test non trouvé ou erreur serveur" },
-      { status: 500 }
-    );
+    console.error("Erreur lors de la mise à jour:", error);
+    return NextResponse.json({ error: "Erreur serveur" }, { status: 500 });
   }
 }
