@@ -21,7 +21,7 @@ export async function PATCH(
       return NextResponse.json({ error: "ID invalide" }, { status: 400 });
     }
 
-    const test = await prisma.testNiveau2.update({
+    const test = await prisma.testInscription.update({
       where: { id },
       data: { statut: "Validé" },
     });
@@ -49,7 +49,7 @@ export async function DELETE(
       return NextResponse.json({ error: "ID invalide" }, { status: 400 });
     }
 
-    await prisma.testNiveau2.delete({
+    await prisma.testInscription.delete({
       where: { id },
     });
 

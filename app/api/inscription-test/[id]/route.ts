@@ -13,13 +13,14 @@ type RouteParams = {
 // Handler DELETE - Supprimer une inscription
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const id = parseInt(params.id);
+    const { id } = await params;
+    const idNum = parseInt(id);
     
     await prisma.testInscription.delete({
-      where: { id },
+      where: { id: idNum },
     });
 
     return NextResponse.json({ success: true });
@@ -32,14 +33,15 @@ export async function DELETE(
 // Handler PATCH - Valider une inscription
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const id = parseInt(params.id);
+    const { id } = await params;
+    const idNum = parseInt(id);
     const body = await req.json();
     
     const test = await prisma.testInscription.update({
-      where: { id },
+      where: { id: idNum },
       data: {
         statut: body.statut,
       },
