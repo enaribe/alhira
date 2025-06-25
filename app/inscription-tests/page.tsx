@@ -1,6 +1,7 @@
 "use client"
 import React, { useState } from "react";
 import Header from "../components/Header";
+import AudioRecorder from "../components/AudioRecorder";
 
 const niveaux = [
   { label: "Niveau 1 (Débutant)", value: "debutant" },
@@ -417,31 +418,15 @@ const TestNiveau = () => {
                   </div>
                 </div>
 
-                {/* Upload audio */}
-                <div className="mb-6">
-                  <label className="block text-[#0F3A42] font-grange font-bold text-sm mb-2">
-                    Charger votre audio ici
-                  </label>
-                  <div className="w-full h-[77px] bg-[#F2F4F6] border border-[#D7E3ED] rounded-[15px] flex items-center justify-center">
-                    <label className="text-[#489EAF] font-grange font-bold cursor-pointer text-sm">
-                      Charger votre enregistrement audio
-                      <input
-                        type="file"
-                        accept="audio/*"
-                        className="hidden"
-                        onChange={(e) => setAnswers(prev => ({
-                          ...prev,
-                          audioFile: e.target.files ? e.target.files[0] : null
-                        }))}
-                      />
-                    </label>
-                    {answers.audioFile && (
-                      <span className="ml-4 text-[#0F3A42] font-opensans text-xs">
-                        {answers.audioFile.name}
-                      </span>
-                    )}
-                  </div>
-                </div>
+                {/* Enregistrement audio */}
+                <AudioRecorder
+                  onAudioRecorded={(audioFile) => setAnswers(prev => ({
+                    ...prev,
+                    audioFile: audioFile
+                  }))}
+                  currentAudio={answers.audioFile}
+                  className="mb-6"
+                />
 
                 {/* Critères d'évaluation */}
                 <div>
@@ -960,39 +945,21 @@ const TestNiveau = () => {
                   Consigne : Lire un passage du Coran
                 </p>
 
-                {/* Encadrés titre Sourate */}
-                <div className="mb-6 space-y-4">
-                  <div className="bg-[#E8F0F2] border border-[#C5D7DC] rounded-[10px] p-3 text-center">
-                    <p className="text-[#489EAF] font-opensans font-bold text-base" dir="rtl">
-                      سورة مريم - الآيات ٥٨ إلى ٦٥
-                    </p>
-                  </div>
-                  <div className="bg-[#E8F0F2] border border-[#C5D7DC] rounded-[10px] p-3 text-center">
-                    <p className="text-[#489EAF] font-opensans font-bold text-base" dir="rtl">
-                      سورة مريم - الآيات ٥٨ إلى ٦٥
-                    </p>
-                  </div>
-                </div>
-
-                {/* Question 1 */}
-                <div className="mb-6">
-                  <p className="text-[#0F3A42] font-opensans font-bold text-sm mb-4">
-                    1. Combien de types d'idghâm existe-t-il ? Nomme-les et donne un exemple pour chacun.
-                  </p>
-                  <textarea
-                    className="w-full h-[80px] bg-[#F2F4F6] border border-[#D7E3ED] rounded-[10px] px-4 py-3 text-sm text-black resize-none"
-                    value={answers.idghamTypes}
-                    onChange={(e) => setAnswers(prev => ({
-                      ...prev,
-                      idghamTypes: e.target.value
-                    }))}
-                    placeholder="Votre réponse..."
-                  />
-                </div>
-
-                {/* Sourate Maryam - Versets */}
+                {/* Question 1 - Récitation de la Sourate */}
                 <div className="mb-8">
-                  <div className="bg-[#F8F9FA] border border-[#E9ECEF] rounded-[10px] p-6 text-right leading-relaxed">
+                  <h4 className="text-[#0F3A42] font-grange font-bold text-lg mb-4">
+                    Question 1 : Récitation du Coran <span className="text-[#489EAF]">(5 points)</span>
+                  </h4>
+                  
+                  {/* Titre Sourate */}
+                  <div className="bg-[#E8F0F2] border border-[#C5D7DC] rounded-[10px] p-3 text-center mb-6">
+                    <p className="text-[#489EAF] font-opensans font-bold text-base" dir="rtl">
+                      سورة مريم - الآيات ٥٨ إلى ٦٥
+                    </p>
+                  </div>
+
+                  {/* Sourate Maryam - Versets */}
+                  <div className="bg-[#F8F9FA] border border-[#E9ECEF] rounded-[10px] p-6 text-right leading-relaxed mb-6">
                     <p className="text-[#0F3A42] text-lg mb-4" dir="rtl">
                       إِلَّا مَن تَابَ وَآمَنَ وَعَمِلَ صَالِحًا فَأُولَٰئِكَ يَدْخُلُونَ الْجَنَّةَ وَلَا يُظْلَمُونَ شَيْئًا <span className="text-[#489EAF] text-sm">(٥٩)</span>
                     </p>
@@ -1012,6 +979,44 @@ const TestNiveau = () => {
                       رَّبُّ السَّمَاوَاتِ وَالْأَرْضِ وَمَا بَيْنَهُمَا فَاعْبُدْهُ وَاصْطَبِرْ لِعِبَادَتِهِ ۚ هَلْ تَعْلَمُ لَهُ سَمِيًّا <span className="text-[#489EAF] text-sm">(٦٤)</span>
                     </p>
                   </div>
+
+                  {/* Enregistrement audio pour la récitation */}
+                  <AudioRecorder
+                    onAudioRecorded={(audioFile) => setAnswers(prev => ({
+                      ...prev,
+                      audioFile: audioFile
+                    }))}
+                    currentAudio={answers.audioFile}
+                    className="mb-6"
+                  />
+
+                  {/* Critères d'évaluation */}
+                  <div className="bg-[#F0F7F8] border border-[#C5D7DC] rounded-[10px] p-4">
+                    <h5 className="text-[#0F3A42] font-opensans font-bold text-sm mb-3">
+                      Critères d'évaluation de la lecture du Coran :
+                    </h5>
+                    <ul className="text-[#0F3A42] font-opensans text-sm space-y-1 list-disc list-inside">
+                      <li>Justesse de la prononciation (makhârij, sifât)</li>
+                      <li>Respect des règles de tajwid (ghunna, idghâm, iqlâb, qalqala, etc.)</li>
+                      <li>Fluidité et rythme de lecture</li>
+                    </ul>
+                  </div>
+                </div>
+
+                {/* Question 2 */}
+                <div className="mb-6">
+                  <p className="text-[#0F3A42] font-opensans font-bold text-sm mb-4">
+                    2. Combien de types d'idghâm existe-t-il ? Nomme-les et donne un exemple pour chacun.
+                  </p>
+                  <textarea
+                    className="w-full h-[80px] bg-[#F2F4F6] border border-[#D7E3ED] rounded-[10px] px-4 py-3 text-sm text-black resize-none"
+                    value={answers.idghamTypes}
+                    onChange={(e) => setAnswers(prev => ({
+                      ...prev,
+                      idghamTypes: e.target.value
+                    }))}
+                    placeholder="Votre réponse..."
+                  />
                 </div>
 
                 {/* Question 3 */}
@@ -1121,7 +1126,23 @@ const TestNiveau = () => {
                   {/* Question 4 */}
                   <div className="mb-6">
                     <p className="text-[#0F3A42] font-opensans font-bold text-sm mb-4">
-                      4. Quelles sont les lettres de la clarification ?
+                      4. Quelle est la différence entre idghâm avec ghunna et idghâm sans ghunna ?
+                    </p>
+                    <textarea
+                      className="w-full h-[80px] bg-[#F2F4F6] border border-[#D7E3ED] rounded-[10px] px-4 py-3 text-sm text-black resize-none"
+                      value={answers.idghamDifference}
+                      onChange={(e) => setAnswers(prev => ({
+                        ...prev,
+                        idghamDifference: e.target.value
+                      }))}
+                      placeholder="Votre réponse..."
+                    />
+                  </div>
+
+                  {/* Question 5 */}
+                  <div className="mb-6">
+                    <p className="text-[#0F3A42] font-opensans font-bold text-sm mb-4">
+                      5. Quelles sont les lettres de la clarification ?
                     </p>
                     <textarea
                       className="w-full h-[80px] bg-[#F2F4F6] border border-[#D7E3ED] rounded-[10px] px-4 py-3 text-sm text-black resize-none"
@@ -1134,10 +1155,10 @@ const TestNiveau = () => {
                     />
                   </div>
 
-                  {/* Question 5 */}
+                  {/* Question 6 */}
                   <div className="mb-6">
                     <p className="text-[#0F3A42] font-opensans font-bold text-sm mb-4">
-                      5. Donne des exemples de idhhâr dans le Coran.
+                      6. Donne des exemples de idhhâr dans le Coran.
                     </p>
                     <textarea
                       className="w-full h-[80px] bg-[#F2F4F6] border border-[#D7E3ED] rounded-[10px] px-4 py-3 text-sm text-black resize-none"
@@ -1150,10 +1171,10 @@ const TestNiveau = () => {
                     />
                   </div>
 
-                  {/* Question 6 */}
+                  {/* Question 7 */}
                   <div className="mb-6">
                     <p className="text-[#0F3A42] font-opensans font-bold text-sm mb-4">
-                      6. Quelle est la règle de tajwid dans le mot <span dir="rtl" className="text-lg">مَن آمَنَ</span> ? Explique-la.
+                      7. Quelle est la règle de tajwid dans le mot <span dir="rtl" className="text-lg">مَن آمَنَ</span> ? Explique-la.
                     </p>
                     <textarea
                       className="w-full h-[80px] bg-[#F2F4F6] border border-[#D7E3ED] rounded-[10px] px-4 py-3 text-sm text-black resize-none"
@@ -1173,10 +1194,10 @@ const TestNiveau = () => {
                     Dissimilation <span className="text-black" dir="rtl">(الإخفاء)</span>
                   </h4>
 
-                  {/* Question 7 */}
+                  {/* Question 8 */}
                   <div className="mb-6">
                     <p className="text-[#0F3A42] font-opensans font-bold text-sm mb-4">
-                      7. Qu'est-ce que l'ikhfâ' ? Citez ses lettres.
+                      8. Qu'est-ce que l'ikhfâ' ? Citez ses lettres.
                     </p>
                     <textarea
                       className="w-full h-[80px] bg-[#F2F4F6] border border-[#D7E3ED] rounded-[10px] px-4 py-3 text-sm text-black resize-none"
@@ -1189,10 +1210,10 @@ const TestNiveau = () => {
                     />
                   </div>
 
-                  {/* Question 8 */}
+                  {/* Question 9 */}
                   <div className="mb-6">
                     <p className="text-[#0F3A42] font-opensans font-bold text-sm mb-4">
-                      8. Donne deux exemples de ikhfâ' avec ghunna.
+                      9. Donne deux exemples de ikhfâ' avec ghunna.
                     </p>
                     <textarea
                       className="w-full h-[80px] bg-[#F2F4F6] border border-[#D7E3ED] rounded-[10px] px-4 py-3 text-sm text-black resize-none"
@@ -1205,10 +1226,10 @@ const TestNiveau = () => {
                     />
                   </div>
 
-                  {/* Question 9 */}
+                  {/* Question 10 */}
                   <div className="mb-6">
                     <p className="text-[#0F3A42] font-opensans font-bold text-sm mb-4">
-                      9. Quelle est la lettre qui provoque l'iqlâb ? Et quelle lettre est transformée ?
+                      10. Quelle est la lettre qui provoque l'iqlâb ? Et quelle lettre est transformée ?
                     </p>
                     <textarea
                       className="w-full h-[80px] bg-[#F2F4F6] border border-[#D7E3ED] rounded-[10px] px-4 py-3 text-sm text-black resize-none"
@@ -1228,10 +1249,10 @@ const TestNiveau = () => {
                     Les allongements <span className="text-black" dir="rtl">(المدود)</span>
                   </h4>
 
-                  {/* Question 10 */}
+                  {/* Question 11 */}
                   <div className="mb-6">
                     <p className="text-[#0F3A42] font-opensans font-bold text-sm mb-4">
-                      10. Quelle est la différence entre madd tabi'î et madd lâzim ?
+                      11. Quelle est la différence entre madd tabi'î et madd lâzim ?
                     </p>
                     <textarea
                       className="w-full h-[80px] bg-[#F2F4F6] border border-[#D7E3ED] rounded-[10px] px-4 py-3 text-sm text-black resize-none"
@@ -1666,28 +1687,15 @@ const TestNiveau = () => {
                   </div>
                 </div>
 
-                {/* Upload audio */}
-                <div className="mb-8">
-                  <label className="block text-[#0F3A42] font-grange font-bold text-sm mb-2">
-                    Charger votre audio ici
-                  </label>
-                  <div className="w-full h-[77px] bg-[#F2F4F6] border border-[#D7E3ED] rounded-[15px] flex items-center justify-center">
-                    <label className="text-[#489EAF] font-grange font-bold cursor-pointer text-sm">
-                      Charger votre enregistrement audio
-                        <input
-                          type="file"
-                        accept="audio/*"
-                          className="hidden"
-                        onChange={(e) => setAnswers(prev => ({ ...prev, audioFile: e.target.files?.[0] || null }))}
-                        />
-                      </label>
-                    {answers.audioFile && (
-                      <span className="ml-4 text-[#0F3A42] font-opensans text-xs">
-                        {answers.audioFile.name}
-                        </span>
-                      )}
-                    </div>
-                  </div>
+                {/* Enregistrement audio */}
+                <AudioRecorder
+                  onAudioRecorded={(audioFile) => setAnswers(prev => ({
+                    ...prev,
+                    audioFile: audioFile
+                  }))}
+                  currentAudio={answers.audioFile}
+                  className="mb-8"
+                />
 
                 {/* Question 1 */}
                 <div className="mb-6">
