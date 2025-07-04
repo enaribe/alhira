@@ -45,6 +45,8 @@ interface SpecialClassCardProps {
 
 interface ModaliteCardProps {
   data: ClassData;
+  buttonText?: string;
+  buttonLink?: string;
 }
 
 // SVG Components
@@ -182,14 +184,14 @@ const SpecialClassCard = ({ classe }: SpecialClassCardProps) => (
     
     {/* Bouton */}
     <div className="w-full flex justify-center mb-8 z-10">
-      <Link href="/inscription-tests" className="w-[90%] h-[46px] bg-[#489EAF] rounded-[10px] flex items-center justify-center font-grange font-extrabold text-lg leading-[12px] text-white hover:bg-[#357e8e] transition-colors no-underline">
+      <Link href={classe.label === 'Langue arabe' ? '/programmes/arabe' : '/inscription-tests'} className="w-[90%] h-[46px] bg-[#489EAF] rounded-[10px] flex items-center justify-center font-grange font-extrabold text-lg leading-[12px] text-white hover:bg-[#357e8e] transition-colors no-underline">
         {classe.inscription || 'S\'inscrire'}
       </Link>
     </div>
   </div>
 );
 
-const ModaliteCard = ({ data }: ModaliteCardProps) => (
+const ModaliteCard = ({ data, buttonText, buttonLink }: ModaliteCardProps) => (
   <div className="relative w-[391px] h-[413px] flex flex-col items-center justify-between overflow-hidden">
     <IslamicCardSVG 
       width="391" 
@@ -229,8 +231,8 @@ const ModaliteCard = ({ data }: ModaliteCardProps) => (
     
     {/* Bouton */}
     <div className="w-full flex justify-center mb-8 z-10">
-      <Link href="/inscription-tests" className="w-[90%] h-[46px] bg-[#489EAF] rounded-[10px] flex items-center justify-center font-grange font-extrabold text-lg leading-[12px] text-white hover:bg-[#357e8e] transition-colors no-underline">
-        {data.button || 'S\'inscrire'}
+      <Link href={buttonLink || "/inscription-tests"} className="w-[90%] h-[46px] bg-[#489EAF] rounded-[10px] flex items-center justify-center font-grange font-extrabold text-lg leading-[12px] text-white hover:bg-[#357e8e] transition-colors no-underline">
+        {buttonText || data.button || 'S\'inscrire'}
       </Link>
     </div>
   </div>
@@ -285,7 +287,6 @@ const Programs = () => {
       label: "Mémorisation du coran",
       description: "De la sourate Ad-Duha (93) á An-Nas (114) - 2 heures par semaine",
       duration: "18 semaines",
-      inscription: "S'inscrire"
     },
     {
       id: 2,
@@ -297,7 +298,6 @@ const Programs = () => {
       label: "Mémorisation du coran",
       description: "De la sourate A'la (87) á Ad-Duha (93) - 2 heures par semaine",
       duration: "18 semaines",
-      inscription: "S'inscrire"
     },
     {
       id: 3,
@@ -309,7 +309,6 @@ const Programs = () => {
       label: "Mémorisation du coran",
       description: "De la sourate An-Naba (78) á Al-A'la (87) - 2 heures par semaine",
       duration: "18 semaines",
-      inscription: "S'inscrire"
     },
     {
       id: 4,
@@ -321,7 +320,6 @@ const Programs = () => {
       label: "Mémorisation du coran",
       description: "Sourate Yasin (36) - Formation de 26 heures répartie sur 13 semaines (2h par semaine)",
       duration: "18 semaines",
-      inscription: "S'inscrire"
     }
   ];
 
@@ -337,7 +335,6 @@ const Programs = () => {
       label: "Tafsir du Coran",
       description: "De la sourate A' La (87) á An-Nas (114) - 2 heures par semaine.",
       duration: "9 semaines",
-      inscription: "S'inscrire"
     },
     {
       id: 12,
@@ -349,7 +346,6 @@ const Programs = () => {
       label: "Tafsir du Coran",
       description: "De la sourate la caverne (18) - 2 heures par semaine",
       duration: "10 semaines",
-      inscription: "S'inscrire"
     }
   ];
 
@@ -402,11 +398,11 @@ const Programs = () => {
   ];
 
   const superiorLevelFaculties = [
-    "Science du Coran",
-    "Tawhid",
-    "Hadith",
-    "Jurisprudence islamique (Fiqh)",
-    "Siirah (Histoire du Prophète ﷺ)"
+    { name: "Science du Coran", href: "/programmes/coran" },
+    { name: "Tawhid", href: "/programmes/tawhid" },
+    { name: "Hadith", href: "/programmes/hadith" },
+    { name: "Jurisprudence islamique (Fiqh)", href: "/programmes/fiqh" },
+    { name: "Siirah (Histoire du Prophète ﷺ)", href: "/programmes/siirah" }
   ];
 
   return (
@@ -460,20 +456,22 @@ const Programs = () => {
           <div className="w-full max-w-[1155px] mx-auto mb-6 sm:mb-8 md:mb-12">
             {/* Version mobile et tablette : Grille */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:hidden gap-4 sm:gap-6 md:gap-8 px-2 sm:px-4">
-              {superiorLevelFaculties.map((title, idx) => (
-                <div key={idx} className="relative w-full max-w-[280px] sm:max-w-[320px] h-[200px] sm:h-[220px] md:h-[240px] flex items-center justify-center mx-auto">
+              {superiorLevelFaculties.map((faculty, idx) => (
+                <Link href={faculty.href} key={idx} className="relative w-full max-w-[280px] sm:max-w-[320px] h-[200px] sm:h-[220px] md:h-[240px] flex items-center justify-center mx-auto no-underline">
                   <SuperiorLevelSVG className="absolute top-0 left-0 w-full h-full z-0" />
                   <span className="relative z-10 font-grange font-extrabold text-[#103951] text-xs sm:text-sm md:text-base leading-4 sm:leading-5 md:leading-6 text-center px-4 sm:px-6 py-3 sm:py-4 break-words hyphens-auto">
-                    {title}
+                    {faculty.name}
                   </span>
-                </div>
+                </Link>
               ))}
             </div>
             
             {/* Version desktop : Ligne horizontale */}
             <div className="hidden lg:flex flex-row items-center justify-center gap-[21px]">
-              {superiorLevelFaculties.map((title, idx) => (
-                <SuperiorLevelCard key={idx} title={title} />
+              {superiorLevelFaculties.map((faculty, idx) => (
+                <Link href={faculty.href} key={idx} className="no-underline">
+                  <SuperiorLevelCard title={faculty.name} />
+                </Link>
               ))}
             </div>
           </div>
@@ -545,7 +543,12 @@ const Programs = () => {
             {langueArabeClasses.map((classe) => (
               <SpecialClassCard key={classe.id} classe={classe} />
             ))}
-            <ModaliteCard key="langue-arabe-modalite" data={createModaliteCard("Modalité des classes spéciales")} />
+            <ModaliteCard 
+              key="langue-arabe-modalite" 
+              data={createModaliteCard("Modalité des classes spéciales")}
+              buttonText="Voir le programme"
+              buttonLink="/programmes/arabe"
+            />
           </div>
         </div>
       </section>
