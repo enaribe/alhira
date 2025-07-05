@@ -3,6 +3,20 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { motion, Variants } from 'framer-motion';
+
+// Animation variants
+const fadeIn: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut"
+    }
+  }
+};
 
 // Types
 interface ClassData {
@@ -135,9 +149,9 @@ const NiveauCard = ({ icon, title, description, inscriptionUrl }: NiveauCardProp
 );
 
 const SuperiorLevelCard = ({ title }: { title: string }) => (
-  <div className="relative w-[216px] h-[244px] flex items-center justify-center">
-    <SuperiorLevelSVG className="absolute top-0 left-0 w-full h-full z-0" />
-    <span className="relative z-10 font-grange font-extrabold text-[#103951] text-sm xl:text-base leading-5 xl:leading-6 text-center px-3 py-2 break-words hyphens-auto">
+  <div className="relative w-[216px] h-[244px] flex items-center justify-center group transform transition-transform duration-300 hover:scale-105 hover:-translate-y-2">
+    <SuperiorLevelSVG className="absolute top-0 left-0 w-full h-full z-0 transition-shadow duration-300 group-hover:drop-shadow-lg" />
+    <span className="relative z-10 font-grange font-extrabold text-[#103951] text-lg xl:text-xl leading-6 text-center px-4 py-2 break-words hyphens-auto mt-10">
       {title}
     </span>
   </div>
@@ -413,7 +427,13 @@ const Programs = () => {
       </SectionTitle>
 
       {/* Section Niveaux classiques */}
-      <section className="relative py-20 px-4 md:px-6 lg:px-8 bg-white overflow-x-hidden">
+      <motion.section 
+        className="relative py-20 px-4 md:px-6 lg:px-8 bg-white overflow-x-hidden"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        variants={fadeIn}
+      >
         <BackgroundImage src="/images/nclassic.png" />
         
         <SectionTitle 
@@ -434,10 +454,16 @@ const Programs = () => {
             />
           ))}
         </div>
-      </section>
+      </motion.section>
 
       {/* Section Niveau supérieur */}
-      <section className="relative w-full min-h-[500px] sm:min-h-[600px] md:min-h-[700px] lg:min-h-[573px] flex flex-col items-center justify-center overflow-hidden mt-8 md:mt-12">
+      <motion.section 
+        className="relative w-full min-h-[500px] sm:min-h-[600px] md:min-h-[700px] lg:min-h-[573px] flex flex-col items-center justify-center overflow-hidden mt-8 md:mt-12"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={fadeIn}
+      >
         {/* Image de fond responsive */}
         <div className="absolute inset-0 w-full h-full z-0 pointer-events-none">
           <img src="/images/nclassic2.png" alt="" className="w-full h-full object-cover" />
@@ -488,10 +514,16 @@ const Programs = () => {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Section Classes spéciales - Séparées par catégories */}
-      <section className="relative w-full py-16 md:py-24 bg-[#F2F4F6] flex flex-col items-center">
+      <motion.section 
+        className="relative w-full py-16 md:py-24 bg-[#F2F4F6] flex flex-col items-center"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.1 }}
+        variants={fadeIn}
+      >
         <SectionTitle className="text-[#0F3A42] text-3xl md:text-4xl lg:text-5xl mb-16">
           Classes spéciales
         </SectionTitle>
@@ -551,7 +583,7 @@ const Programs = () => {
             />
           </div>
         </div>
-      </section>
+      </motion.section>
     </div>
   );
 };
