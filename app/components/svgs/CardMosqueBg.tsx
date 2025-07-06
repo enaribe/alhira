@@ -1,0 +1,23 @@
+import React from 'react';
+
+interface CardMosqueBgProps {
+  className?: string;
+}
+
+const CardMosqueBg: React.FC<CardMosqueBgProps> = ({ className }) => {
+  return (
+    <svg 
+      width="100%" 
+      height="80%" 
+      viewBox="0 0 328 340" 
+      fill="none" 
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      preserveAspectRatio="none"
+    >
+      <path d="M251.259 68.6446C308.728 67.8488 325.699 99.151 327 114.902V314C327 327.807 315.807 339 302 339H26C12.1929 339 1 327.807 1 314V114.902C6.62203 75.9064 53.8367 67.8156 76.7413 68.6446C82.5976 36.8118 111.098 38.304 130.619 29.8484C146.236 23.084 159.25 7.79762 163.805 1C184.497 28.8537 200.504 30.8432 225.491 38.304C245.48 44.2727 250.998 61.018 251.259 68.6446Z" fill="#F2F4F6" stroke="#0F3A42"/>
+    </svg>
+  );
+};
+
+export default CardMosqueBg; 

@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import CardMosqueBg from '../svgs/CardMosqueBg';
 
 const level1 = {
   title: 'Niveau 1 : Débutant',
@@ -94,11 +95,11 @@ const level2 = {
   };
 
 const ModuleCard = ({ module }: { module: { title: string; points: string[] } }) => (
-    <div className="relative w-full max-w-[326px] h-[338px] flex-shrink-0 mx-auto">
-      <Image src="/images/svgs/card-mosque-bg.svg" alt="" layout="fill" objectFit="contain" className="z-0" />
+    <div className="relative w-full max-w-[326px] h-[420px] lg:h-[400px] flex-shrink-0 mx-auto">
+      <CardMosqueBg className="absolute inset-0 w-full h-full z-0" />
       <div className="relative z-10 pt-24 pb-8 px-4 h-full flex flex-col items-center text-center">
         <h4 className="text-lg font-bold text-[#489EAF] mb-4">{module.title}</h4>
-        <ul className="space-y-1 text-sm text-[#0F3A42] text-left list-disc list-inside">
+        <ul className="w-full space-y-1 text-sm text-[#0F3A42] text-left list-disc list-inside">
           {module.points.map(point => <li key={point}>{point}</li>)}
         </ul>
       </div>
