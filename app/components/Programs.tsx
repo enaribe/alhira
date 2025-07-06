@@ -196,11 +196,13 @@ const SpecialClassCard = ({ classe }: SpecialClassCardProps) => (
       )}
     </div>
     
-    {/* Bouton */}
+    {/* Bouton conditionnel */}
     <div className="w-full flex justify-center mb-8 z-10">
-      <Link href={classe.label === 'Langue arabe' ? '/programmes/arabe' : '/inscription-tests'} className="w-[90%] h-[46px] bg-[#489EAF] rounded-[10px] flex items-center justify-center font-grange font-extrabold text-lg leading-[12px] text-white hover:bg-[#357e8e] transition-colors no-underline">
-        {classe.inscription || 'S\'inscrire'}
-      </Link>
+      {classe.label === 'Langue arabe' && (
+        <Link href={'/programmes/arabe'} className="w-[90%] h-[46px] bg-[#489EAF] rounded-[10px] flex items-center justify-center font-grange font-extrabold text-lg leading-[12px] text-white hover:bg-[#357e8e] transition-colors no-underline">
+          {classe.inscription || 'S\'inscrire'}
+        </Link>
+      )}
     </div>
   </div>
 );
@@ -245,9 +247,9 @@ const ModaliteCard = ({ data, buttonText, buttonLink }: ModaliteCardProps) => (
     
     {/* Bouton */}
     <div className="w-full flex justify-center mb-8 z-10">
-      <Link href={buttonLink || "/inscription-tests"} className="w-[90%] h-[46px] bg-[#489EAF] rounded-[10px] flex items-center justify-center font-grange font-extrabold text-lg leading-[12px] text-white hover:bg-[#357e8e] transition-colors no-underline">
+      {/* <Link href={buttonLink || "/inscription-tests"} className="w-[90%] h-[46px] bg-[#489EAF] rounded-[10px] flex items-center justify-center font-grange font-extrabold text-lg leading-[12px] text-white hover:bg-[#357e8e] transition-colors no-underline">
         {buttonText || data.button || 'S\'inscrire'}
-      </Link>
+      </Link> */}
     </div>
   </div>
 );
