@@ -24,12 +24,7 @@ const Hero = () => {
               Institut Al Hira vous accompagne dans votre parcours d'apprentissage avec des programmes adaptés à tous les niveaux, dispensés par des enseignants qualifiés.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
-              <Link 
-                href="/inscription-tests"
-                className="bg-[#489EAF] text-white font-grange text-sm md:text-base font-extrabold py-2 md:py-2.5 px-5 md:px-7 rounded-lg text-center hover:bg-[#3A8A9B] transition-colors"
-              >
-                S'inscrire aux tests
-              </Link>
+              
               <Link 
                 href="/#formations"
                 className="border border-white text-white font-grange text-sm md:text-base font-extrabold py-2 md:py-2.5 px-5 md:px-7 rounded-lg text-center hover:bg-white/10 transition-colors"

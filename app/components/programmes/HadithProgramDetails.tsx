@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 const Level1 = () => (
     <div className="bg-white rounded-2xl border border-[#D7E2ED] shadow-sm overflow-hidden">
@@ -162,6 +163,24 @@ const Level3 = () => (
         <div className="bg-gradient-to-b from-white to-[#EBF2F3] border-t border-[#D7E2ED] py-3 text-center">
           <button className="font-grange text-xl text-[#489EAF] hover:underline">S'inscrire au programme</button>
         </div>
+    </div>
+);
+
+const ModuleCard = ({ module }: { module: { title: string; points: string[] } }) => (
+    <div className="relative w-full max-w-[326px] h-[338px] flex-shrink-0 mx-auto">
+      <Image src="/images/svgs/card-mosque-bg.svg" alt="" layout="fill" objectFit="contain" className="z-0" />
+      <div className="relative z-10 pt-24 pb-8 px-4 h-full flex flex-col items-center text-center">
+        <h5 className="font-grange font-bold text-2xl text-[#489EAF] mb-4">{module.title}</h5>
+        <div className="bg-[#F2F4F6] p-4 rounded-lg mb-8">
+            <h4 className="font-bold text-[#0F3A42] mb-2 text-sm">Objectifs :</h4>
+            <div className="flex flex-wrap gap-x-6 gap-y-1 text-sm text-[#0F3A42] font-semibold">
+                {module.points.map((obj: string) => <span key={obj}>{obj}</span>)}
+            </div>
+        </div>
+        <div className="flex flex-col lg:flex-row flex-wrap gap-10 justify-center items-end">
+          {module.modules.map((module: any) => <ModuleCard key={module.title} module={module} />)}
+        </div>
+      </div>
     </div>
 );
 

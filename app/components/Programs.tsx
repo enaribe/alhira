@@ -503,16 +503,7 @@ const Programs = () => {
           </div>
           
           {/* Boutons responsive avec espacement */}
-          <div className="w-full max-w-[587px] mx-auto px-2 sm:px-4">
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 md:gap-[26px]">
-              <Link href="/inscription-tests" className="w-full sm:w-[279px] h-[44px] md:h-[48px] border border-white rounded-[8px] md:rounded-[10px] flex items-center justify-center font-grange font-extrabold text-sm sm:text-base md:text-lg text-white transition hover:bg-white hover:text-[#0F3A42] no-underline">
-                En savoir plus
-              </Link>
-              <Link href="/inscription-tests" className="w-full sm:w-[282px] h-[44px] md:h-[48px] bg-[#489EAF] rounded-[8px] md:rounded-[10px] flex items-center justify-center font-grange font-extrabold text-sm sm:text-base md:text-lg text-white transition hover:bg-[#357e8e] no-underline">
-                S'inscrire maintenant
-              </Link>
-            </div>
-          </div>
+          
         </div>
       </motion.section>
 

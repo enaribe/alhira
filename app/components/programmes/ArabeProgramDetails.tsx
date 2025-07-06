@@ -94,7 +94,7 @@ const level2 = {
   };
 
 const ModuleCard = ({ module }: { module: { title: string; points: string[] } }) => (
-    <div className="relative w-[326px] h-[338px] flex-shrink-0">
+    <div className="relative w-full max-w-[326px] h-[338px] flex-shrink-0 mx-auto">
       <Image src="/images/svgs/card-mosque-bg.svg" alt="" layout="fill" objectFit="contain" className="z-0" />
       <div className="relative z-10 pt-24 pb-8 px-4 h-full flex flex-col items-center text-center">
         <h4 className="text-lg font-bold text-[#489EAF] mb-4">{module.title}</h4>
@@ -124,7 +124,7 @@ const LevelSection = ({ level }: { level: any }) => (
                 {level.objectives.map((obj: string) => <span key={obj}>{obj}</span>)}
             </div>
         </div>
-        <div className="flex flex-row gap-10 justify-center items-end">
+        <div className="flex flex-col lg:flex-row flex-wrap gap-10 justify-center items-end">
           {level.modules.map((module: any) => <ModuleCard key={module.title} module={module} />)}
         </div>
     </div>

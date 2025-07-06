@@ -33,16 +33,12 @@ const CTA = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-3 md:gap-4 w-full lg:w-auto">
             <button 
-              onClick={() => window.location.href = '/inscription-tests'}
+              onClick={() => window.location.href = '/#formations'}
               className="bg-[#489EAF] hover:bg-[#357d8c] text-white font-grange font-extrabold text-[14px] md:text-[16px] rounded-[8px] md:rounded-[10px] px-[20px] md:px-[30px] py-[8px] md:py-[10px] transition w-full sm:w-auto"
             >
-              S'inscrire aux tests
+              Découvrir nos programmes
             </button>
-            <button 
-              onClick={() => window.location.href = '/inscription-tests'}
-              className="border border-white text-white font-grange font-extrabold text-[14px] md:text-[16px] rounded-[8px] md:rounded-[10px] px-[20px] md:px-[30px] py-[8px] md:py-[10px] transition hover:bg-white hover:text-[#0F3A42] w-full sm:w-auto">
-              S'inscrire aux tests
-            </button>
+            
           </div>
         </div>
         
