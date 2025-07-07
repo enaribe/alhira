@@ -134,7 +134,14 @@ const LevelSection = ({ level }: { level: typeof level1 }) => (
         </div>
     </div>
     <div className="bg-gradient-to-b from-white to-[#EBF2F3] border-t border-[#D7E2ED] py-3 text-center">
-      <button className="font-grange text-xl text-[#489EAF] hover:underline">S'inscrire au programme</button>
+                    <a 
+                href="https://docs.google.com/forms/d/e/1FAIpQLSeJR9IpREgaYC6NM4RzC1ch2q0azYbC40RfEVx_fY7omZclLg/viewform?usp=dialog" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="font-grange text-xl text-[#489EAF] hover:underline cursor-pointer"
+              >
+                S'inscrire au programme
+              </a>
     </div>
   </div>
 );
