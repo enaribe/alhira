@@ -21,16 +21,23 @@ const TestNiveau = () => {
     if (typeof window !== 'undefined') {
       const urlParams = new URLSearchParams(window.location.search);
       const niveauParam = urlParams.get('niveau');
+      const testDirect = urlParams.get('test') === 'direct';
+      
       if (niveauParam && ['debutant', 'intermediaire', 'avance'].includes(niveauParam)) {
         setSelected(niveauParam);
         
-        // Faire défiler vers la section des niveaux après un court délai
-        setTimeout(() => {
-          const niveauxSection = document.querySelector('[data-niveaux-section]');
-          if (niveauxSection) {
-            niveauxSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          }
-        }, 100);
+        // Si c'est un test direct, lancer immédiatement le test
+        if (testDirect) {
+          setShowTest(true);
+        } else {
+          // Sinon, faire défiler vers la section des niveaux après un court délai
+          setTimeout(() => {
+            const niveauxSection = document.querySelector('[data-niveaux-section]');
+            if (niveauxSection) {
+              niveauxSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+          }, 100);
+        }
       }
     }
   }, []);

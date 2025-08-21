@@ -55,7 +55,7 @@ const Features = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 justify-items-center">
           {features.map((feature, index) => (
             <FeatureCard
               key={index}
@@ -76,15 +76,16 @@ const FeatureCard = ({ icon, title, description }: {
   title: string;
   description: string;
 }) => (
-  <div style={{ width: 374, height: 485, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+  <div className="relative w-full max-w-[374px] h-[485px] flex items-center justify-center">
     {/* SVG en fond */}
     <svg
-      width="374"
-      height="485"
+      width="100%"
+      height="100%"
       viewBox="0 0 376 489"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      style={{ position: 'absolute', top: 0, left: 0, zIndex: 0 }}
+      className="absolute top-0 left-0 w-full h-full z-0"
+      preserveAspectRatio="none"
     >
       <path
         d="M87.8934 426.548C21.9619 427.259 2.49301 399.286 1 385.21V103.79C7.44981 68.9414 61.6164 61.7109 87.8934 62.4517C94.612 34.0039 127.309 35.3374 149.704 27.7809C167.62 21.7357 182.551 8.07481 187.776 2C211.515 26.8919 229.879 28.6699 258.545 35.3374C281.478 40.6714 287.808 55.6361 288.107 62.4518C354.038 61.7406 373.507 89.7143 375 103.79V385.21C368.55 420.059 314.384 427.289 288.107 426.548C281.388 454.996 248.691 453.663 226.296 461.219C208.38 467.264 193.45 480.925 188.224 487C164.485 462.108 146.121 460.33 117.455 453.663C94.5224 448.329 88.192 433.364 87.8934 426.548Z"
@@ -94,42 +95,14 @@ const FeatureCard = ({ icon, title, description }: {
       />
     </svg>
     {/* Contenu centré */}
-    <div style={{
-      position: 'absolute',
-      top: 0, left: 0, width: '100%', height: '100%',
-      display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', zIndex: 1
-    }}>
-      <div style={{
-        width: 89,
-        height: 89,
-        background: '#F2F4F6',
-        borderRadius: '50%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginBottom: 25,
-      }}>
+    <div className="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center z-10 px-6">
+      <div className="w-[89px] h-[89px] bg-[#F2F4F6] rounded-full flex items-center justify-center mb-6">
         {icon}
       </div>
-      <h3 style={{
-        fontFamily: 'Grange',
-        fontWeight: 800,
-        fontSize: 28,
-        color: '#0F3A42',
-        textAlign: 'center',
-        marginBottom: 20,
-      }}>
+      <h3 className="font-grange font-extrabold text-xl md:text-2xl lg:text-[28px] text-[#0F3A42] text-center mb-5">
         {title}
       </h3>
-      <p style={{
-        fontFamily: 'Open Sans',
-        fontWeight: 500,
-        fontSize: 14,
-        lineHeight: '26px',
-        color: '#FFFFFF',
-        textAlign: 'center',
-        width: 291,
-      }}>
+      <p className="font-opensans font-medium text-sm md:text-base text-white text-center max-w-[291px] leading-[26px]">
         {description}
       </p>
     </div>

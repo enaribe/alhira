@@ -456,7 +456,7 @@ const Programs = () => {
               icon={<BookIcon />}
               title={program.title}
               description={program.description}
-              inscriptionUrl={`/inscription-tests?niveau=${program.value}`}
+              inscriptionUrl={`/inscription-tests?niveau=${program.value}&test=direct`}
             />
           ))}
         </div>
