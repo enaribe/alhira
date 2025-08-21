@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
 import AudioRecorder from "../components/AudioRecorder";
 
@@ -15,6 +15,25 @@ const TestNiveau = () => {
   const [selected, setSelected] = useState("debutant");
   const [showTest, setShowTest] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  // Effet pour détecter le paramètre de niveau dans l'URL
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      const niveauParam = urlParams.get('niveau');
+      if (niveauParam && ['debutant', 'intermediaire', 'avance'].includes(niveauParam)) {
+        setSelected(niveauParam);
+        
+        // Faire défiler vers la section des niveaux après un court délai
+        setTimeout(() => {
+          const niveauxSection = document.querySelector('[data-niveaux-section]');
+          if (niveauxSection) {
+            niveauxSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        }, 100);
+      }
+    }
+  }, []);
 
   // États pour les nouveaux tests (niveau 2 et 3)
   const [currentStep, setCurrentStep] = useState(1);
@@ -2060,10 +2079,13 @@ const TestNiveau = () => {
       <Header />
       <main className="min-h-screen bg-[#F2F4F6] flex flex-col items-center pt-8 pb-6 px-2">
         <h1 className="text-[#0F3A42] font-grange text-2xl md:text-4xl lg:text-5xl font-extrabold leading-[30px] text-center mt-20 mb-10">
-          Teste de niveau
+          Test de niveau
         </h1>
         {!showTest ? (
-          <section className="w-full max-w-4xl bg-white border border-[#D7E3ED] rounded-[30px] mx-auto px-2 md:px-8 py-6 flex flex-col items-center shadow-sm">
+          <section 
+            data-niveaux-section
+            className="w-full max-w-4xl bg-white border border-[#D7E3ED] rounded-[30px] mx-auto px-2 md:px-8 py-6 flex flex-col items-center shadow-sm"
+          >
             <p className="text-[#8698A7] text-sm md:text-base mb-6 text-center">
               Selectionner votre niveau
             </p>
@@ -2075,7 +2097,7 @@ const TestNiveau = () => {
                     niveau.value === "superieur" || niveau.value === "speciales"
                       ? "border-[#D7E3ED] text-[#BBBDC0] bg-[#F8F9FA] cursor-not-allowed opacity-60"
                       : selected === niveau.value
-                        ? "border-[#0F3A42] text-[#0F3A42] bg-white"
+                        ? "border-[#0F3A42] text-[#0F3A42] bg-white shadow-lg ring-2 ring-[#489EAF] ring-opacity-50"
                         : "border-[#D7E3ED] text-[#8698A7] bg-white"
                   }`}
                   onClick={() => {

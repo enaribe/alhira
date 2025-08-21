@@ -44,6 +44,7 @@ interface ProgramData {
   title: string;
   description: string;
   color: string;
+  value: string;
 }
 
 interface NiveauCardProps {
@@ -261,19 +262,22 @@ const Programs = () => {
       level: "Débutant",
       title: "Niveau 1 (Débutant)",
       description: "Initiation à la lecture du Coran, bases de la jurisprudence islamique (fiqh) et introduction à l'exégèse (tafsir).",
-      color: "#B65D73"
+      color: "#B65D73",
+      value: "debutant"
     },
     {
       level: "Intermédiaire",
       title: "Niveau 2 (Intermédiaire)",
       description: "Approfondissement du fiqh, étude du jeûne et de la zakat, perfectionnement de la lecture du Coran et règles de tajwid.",
-      color: "#489EAF"
+      color: "#489EAF",
+      value: "intermediaire"
     },
     {
       level: "Avancé",
       title: "Niveau 3 (Avancé)",
       description: "Approfondissement de la lecture du coran (avancé), Jurisprudence islamique approfondie, usul al-fiqh, étude des piliers de l'Islam, hadith et tawhid pour étudiants confirmés.",
-      color: "#0F3A42"
+      color: "#0F3A42",
+      value: "avance"
     }
   ];
 
@@ -452,7 +456,7 @@ const Programs = () => {
               icon={<BookIcon />}
               title={program.title}
               description={program.description}
-              inscriptionUrl="/inscription-tests"
+              inscriptionUrl={`/inscription-tests?niveau=${program.value}`}
             />
           ))}
         </div>
